@@ -4,18 +4,23 @@ import Content from '~/components/widgets/Content.astro';
 import Whatsapp from  '~/components/widgets/Whatsapp.astro';
 import Hero4 from '~/components/widgets/Hero4.astro';
 import InformationCards from '~/components/widgets/InformationCards.astro';
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { useTranslations } from "~/i18n/utils";
+import { languageList } from '~/i18n/ui';
+const currentLang = Astro.currentLocale || "es";
+import { getPermalink } from '~/utils/permalinks';
 
+const translateLabels = useTranslations(currentLang as keyof typeof languageList);
 
+export function getLocalizedPermalink(path, lang = "en") {
+  return getRelativeLocaleUrl(lang, getPermalink(path));
+}
 export interface Props {
 	title: string;
 }
 
-
-
 const metadata = {
-  title: 'Aconcagua Pared Sur',
   ignoreTitleTemplate: true,
-  
 };
 ---
 
@@ -26,7 +31,7 @@ const metadata = {
   images={[
     {
       src: '~/assets/images/WhatsApp_icon.png',
-      alt: 'Centro',
+      alt: String(translateLabels("whatsapp")),
     }
   ]}
 />
@@ -36,70 +41,66 @@ const metadata = {
     '~/assets/images/imagen3.png',
   ]}>
     <Fragment slot="title">
-      Visitá 
-      <span class="text-accent dark:text-white highlight"> Aconcagua</span>
-      <span class="hidden xl:inline"> con Pared Sur Expediciones.</span>
+      {String(translateLabels("heroTitle")).split('<span').map((part, index) => (
+        part.includes('</span>') ? (
+          <span key={index} class="text-accent dark:text-white highlight">{part.replace('</span>', '')}</span>
+        ) : (
+          part
+        )
+      ))}
     </Fragment>
-  
+
     <Fragment slot="subtitle">
       <span class="sm:inline">
-        Nuestro equipo profesional de campamenteros, guías y porters te ofrece apoyo personalizado
-        y seguridad en cada paso. Seas principiante o experimentado, <span class="font-semibold">Aconcagua Pared Sur</span> te llevará a
-        la cima de América. ¡Uníte a nosotros!
+        {String(translateLabels("heroSubtitle")).split('<span').map((part, index) => (
+          part.includes('</span>') ? (
+            <span key={index} class="font-semibold">{part.replace('</span>', '')}</span>
+          ) : (
+            part
+          )
+        ))}
       </span>
     </Fragment>
   </Hero4>
-  
-
-  <!-- Note Widget ******************* -->
-
-
-  
-
-  <!-- Features Widget *************** -->
 
   <!-- Content Widget **************** -->
 
   <Content
     isReversed
-    tagline="¡Elegí tu aventura para esta temporada!"
-    title="Expediciones, trekkings y servicios especializados de excelencia"
+    tagline={String(translateLabels("content1tagline"))}
+    title={String(translateLabels("content1title"))}
     items={[
       {
-        title: 'Ruta Normal',
-        description:
-          'Alcanzá la cumbre del cerro más alto de América con nuestro programa que incluye trekking a Plaza Francia para aclimatar.',
-          link: '/ruta-normal'
+        title: String(translateLabels("rutaNormalTitle")),
+        description: String(translateLabels("rutaNormalDescription")),
+        link: getLocalizedPermalink("/ruta-normal")
       },
       {
-        title: 'Ruta 360º',
-        description:
-          'Descubrí dos facetas del Aconcagua con nuestra ruta que abarca la cara este y noroeste. Experimentá ascender a través del valle de Vacas y descender por la ruta normal, disfrutando plenamente de la majestuosidad de la montaña más alta de América.',
-          link: '/ruta-360'
+        title: String(translateLabels("ruta360Title")),
+        description: String(translateLabels("ruta360Description")),
+        link: getLocalizedPermalink("/ruta-360")
       },
       {
-        title: 'Ruta Polacos',
-        description:
-          'Experimentá más allá del trekking a Plaza Francia. Con nuestra Ruta Normal Extendida, conquistá el cerro Bonete (5000m) como parte de la aclimatación para alcanzar la cumbre del Aconcagua.',
-          link: '/glaciar-polacos'
+        title: String(translateLabels("rutaPolacosTitle")),
+        description: String(translateLabels("rutaPolacosDescription")),
+        link: getLocalizedPermalink("/glaciar-polacos")
+
       },
-    
       {
-        title: 'Ruta Falso Polacos',
-        description:
-          'Conquistá el lado más rústico del Aconcagua a través de esta ruta menos transitada que la normal.',
-          link: '/falso-polacos'
+        title: String(translateLabels("rutaFalsoPolacosTitle")),
+        description: String(translateLabels("rutaFalsoPolacosDescription")),
+        link: getLocalizedPermalink("/falso-polacos")
+
       },
-      
     ]}
     image={{
       src: '~/assets/images/imagen1.png',
-      alt: 'Imagen1',
+      alt: String(translateLabels("content1imageAlt")),
     }}
   >
     <Fragment slot="content">
-      <a class="h1_servicios" href="/homes/expediciones"><h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Expediciones</h3></a>
-      Logística excelente y ocupada en cada detalle. 
+      <a class="h1_servicios" href="/homes/expediciones"><h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">{String(translateLabels("content1linkTitle"))}</h3></a>
+      {String(translateLabels("content1linkDescription"))}
     </Fragment>
 
     <Fragment slot="bg">
@@ -113,31 +114,33 @@ const metadata = {
     isAfterContent
     items={[
       {
-        title: 'Trekking Corto - Plaza Francia',
-        description: `Explorá los glaciares de Plaza Francia (4100 msnm), en la base de la impresionante Pared Sur Sur del Aconcagua.`,
-        link: '/trekking_corto'
+        title: String(translateLabels("trekkingCortoTitle")),
+        description: String(translateLabels("trekkingCortoDescription")),
+        link: getLocalizedPermalink("/trekking_corto")
+
+        
       },
       {
-        title: 'Trekking Largo - Plaza de Mulas',
-        description:
-          'Visitá Plaza Francia y Plaza de Mulas (4300 msnm), donde podrás presenciar la preparación de los escaladores para la cumbre.',
-          link: '/trekking_largo'
+        title: String(translateLabels("trekkingLargoTitle")),
+        description: String(translateLabels("trekkingLargoDescription")),
+        link: getLocalizedPermalink("/trekking_largo")
+
       },
       {
-        title: 'Trekking Valle de Lágrimas - Avión de los Uruguayos',
-        description: `Viví una experiencia de película en el lugar la tragedia de los uruguayos en los Andes.`,
-        link: '/trekking_avion'
+        title: String(translateLabels("trekkingAvionTitle")),
+        description: String(translateLabels("trekkingAvionDescription")),
+        link: getLocalizedPermalink("/trekking_avion")
+
       },
-      
     ]}
     image={{
       src: '~/assets/images/imagen1.jpg',
-      alt: 'Trekking Image',
+      alt: String(translateLabels("content2imageAlt")),
     }}
   >
   <Fragment slot="content">
-    <a class="h1_servicios" href="/homes/trekkings"><h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Trekkings</h3></a>
-    Experiencias magníficas y emocionantes
+    <a class="h1_servicios" href="/homes/trekkings"><h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">{String(translateLabels("content2linkTitle"))}</h3></a>
+    {String(translateLabels("content2linkDescription"))}
   </Fragment>
 
     <Fragment slot="bg">
@@ -152,73 +155,59 @@ const metadata = {
     isAfterContent
     items={[
        {
-        title: 'Servicios en Ciudad de Mendoza',
-        description:
-          '',
-          icon: 'tabler:building',
-        },
-        {
-        title: 'Transporte',
-        description:
-          '',
-          icon: 'tabler:car',
-        },
-        {
-        title: 'Servicios en penitentes',
-        description:
-          '',
-          icon: 'tabler:mountain',
-        },
-        {
-        title: 'Mulas para transporte',
-        description:
-          '',
-          icon: 'tabler:horse',
-        },
-        {
-        title: 'Servicios en campamentos base',
-        description:
-          '',
-          icon: 'tabler:mountain',
-        },
-      {
-        title: 'Servicios en campamentos de altura',
-        description:
-          '',
-          icon: 'tabler:home',
+        title: String(translateLabels("serviciosCiudadTitle")),
+        description: '',
+        icon: 'tabler:building',
       },
       {
-        title: 'Servicio de porteadores',
-        description:
-          '',
-          icon: 'tabler:shoe',
-        },
-        {
-        title: 'Asesoramiento y comunicación',
-        description:
-          '',
-          icon: 'tabler:phone',
-        },
-      
-        {
-        title: 'Gestión de permisos oficiales',
-        description:
-          '',
-          icon: 'tabler:pencil',
-        },
-      
-       
-    
+        title: String(translateLabels("serviciosTransporteTitle")),
+        description: '',
+        icon: 'tabler:car',
+      },
+      {
+        title: String(translateLabels("serviciosPenitentesTitle")),
+        description: '',
+        icon: 'tabler:mountain',
+      },
+      {
+        title: String(translateLabels("serviciosMulasTitle")),
+        description: '',
+        icon: 'tabler:horse',
+      },
+      {
+        title: String(translateLabels("serviciosCampamentosBaseTitle")),
+        description: '',
+        icon: 'tabler:mountain',
+      },
+      {
+        title: String(translateLabels("serviciosCampamentosAlturaTitle")),
+        description: '',
+        icon: 'tabler:home',
+      },
+      {
+        title: String(translateLabels("serviciosPorteadoresTitle")),
+        description: '',
+        icon: 'tabler:shoe',
+      },
+      {
+        title: String(translateLabels("serviciosAsesoramientoTitle")),
+        description: '',
+        icon: 'tabler:phone',
+      },
+      {
+        title: String(translateLabels("serviciosPermisosTitle")),
+        description: '',
+        icon: 'tabler:pencil',
+      },
     ]}
     image={{
       src: '~/assets/images/imagen3.png',
-      alt: 'Imagen Massages',
+      alt: String(translateLabels("content3imageAlt")),
     }}
   >
   <Fragment slot="content">
-    <a class="h1_servicios" href="/homes/servicios"><h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">Servicios logísticos</h3> </a>
-    Disfrutá la experiencia, nosotros nos encargamos del resto. Somos especialistas en Aconcagua desde hace más de 25 años!
-
+    <a class="h1_servicios" href="/homes/servicios"><h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">{String(translateLabels("content3linkTitle"))}</h3></a>
+    {String(translateLabels("content3linkDescription"))}
   </Fragment>
 
     <Fragment slot="bg">
@@ -227,37 +216,34 @@ const metadata = {
   </Content>
 
   <InformationCards
-  title="ELIGE TU AVENTURA CON PARED SUR"
-  subtitle="EXPEDICIONES AL ACONCAGUA Y SERVICIOS"
+  title={String(translateLabels("informationCardsTitle"))}
+  subtitle={String(translateLabels("informationCardsSubtitle"))}
   prices={[
     {
-      title: 'EXPEDICIONES PROGRAMADAS',
-      subtitle: 'Más de 35 fechas de salidas para que elijas.',
+      title: String(translateLabels("expedicionesTitle")),
+      subtitle: String(translateLabels("expedicionesSubtitle")),
       imageSrc: '/images/WhatsApp_icon.png',
-      callToAction: { text: 'Ver más', href: '#' },
+      callToAction: { text: String(translateLabels("expedicionesButton")), href: '#' },
     },
     {
-      title: 'STANDARD',
-      subtitle: 'Ideal para grupos pequeños',
+      title: String(translateLabels("standardTitle")),
+      subtitle: String(translateLabels("standardSubtitle")),
       imageSrc: '/images/WhatsApp_icon.png',
-      callToAction: { text: 'Ver más', href: '#' },
+      callToAction: { text: String(translateLabels("standardButton")), href: '#' },
       hasRibbon: true,
-      ribbonTitle: '🔥 Popular',
+      ribbonTitle: String(translateLabels("standardRibbon")),
     },
     {
-      title: 'PREMIUM',
-      subtitle: 'Ideal para empresas',
+      title: String(translateLabels("premiumTitle")),
+      subtitle: String(translateLabels("premiumSubtitle")),
       imageSrc: '/images/WhatsApp_icon.png',
-      callToAction: { text: 'Ver más', href: '#' },
+      callToAction: { text: String(translateLabels("premiumButton")), href: '#' },
     },
   ]}
 />
 
-
     <Fragment slot="bg">
       <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
     </Fragment>
-
- 
 
 </Layout>

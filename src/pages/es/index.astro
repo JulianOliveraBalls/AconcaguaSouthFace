@@ -4,32 +4,34 @@ import Content from '~/components/widgets/Content.astro';
 import Whatsapp from  '~/components/widgets/Whatsapp.astro';
 import Hero4 from '~/components/widgets/Hero4.astro';
 import InformationCards from '~/components/widgets/InformationCards.astro';
-import { labels } from '~/i18n/ui.ts';
-import { useTranslations } from '~/i18n/utils.ts';
-import { languageList } from '~/i18n/ui.ts';
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { useTranslations } from "~/i18n/utils";
+import { languageList } from '~/i18n/ui';
+const currentLang = Astro.currentLocale || "es";
+import { getPermalink } from '~/utils/permalinks';
+
+const translateLabels = useTranslations(currentLang as keyof typeof languageList);
+
+export function getLocalizedPermalink(path, lang = "es") {
+  return getRelativeLocaleUrl(lang, getPermalink(path));
+}
 export interface Props {
-  title: string;
-  lang: 'es' | 'en';
+	title: string;
 }
 
 const metadata = {
-  title: 'Aconcagua Pared Sur',
   ignoreTitleTemplate: true,
 };
-
-const lang = 'es';
-const t = labels[lang];
-const translateLabels = useTranslations(
-  currentLang as keyof typeof languageList
-);
 ---
 
 <Layout metadata={metadata}>
+
+  <!-- Hero Widget ******************* -->
   <Whatsapp
   images={[
     {
       src: '~/assets/images/WhatsApp_icon.png',
-      alt: 'Centro',
+      alt: String(translateLabels("whatsapp")),
     }
   ]}
 />
@@ -39,36 +41,209 @@ const translateLabels = useTranslations(
     '~/assets/images/imagen3.png',
   ]}>
     <Fragment slot="title">
-      {t.hero.title} <span class="text-accent dark:text-white highlight"> Aconcagua</span>
-      <span class="hidden xl:inline"> {t.hero.subtitle}</span>
+      {String(translateLabels("heroTitle")).split('<span').map((part, index) => (
+        part.includes('</span>') ? (
+          <span key={index} class="text-accent dark:text-white highlight">{part.replace('</span>', '')}</span>
+        ) : (
+          part
+        )
+      ))}
     </Fragment>
+
     <Fragment slot="subtitle">
-      <span class="sm:inline">{t.hero.description}</span>
+      <span class="sm:inline">
+        {String(translateLabels("heroSubtitle")).split('<span').map((part, index) => (
+          part.includes('</span>') ? (
+            <span key={index} class="font-semibold">{part.replace('</span>', '')}</span>
+          ) : (
+            part
+          )
+        ))}
+      </span>
     </Fragment>
   </Hero4>
 
+  <!-- Content Widget **************** -->
+
   <Content
     isReversed
-    tagline={t.content.tagline}
-    title={t.content.title}
-    items={t.content.items}
-    image={{ src: '~/assets/images/imagen1.png', alt: 'Imagen1' }}
+    tagline={String(translateLabels("content1tagline"))}
+    title={String(translateLabels("content1title"))}
+    items={[
+      {
+        title: String(translateLabels("rutaNormalTitle")),
+        description: String(translateLabels("rutaNormalDescription")),
+        link: getLocalizedPermalink("/ruta-normal")
+      },
+      {
+        title: String(translateLabels("ruta360Title")),
+        description: String(translateLabels("ruta360Description")),
+        link: getLocalizedPermalink("/ruta-360")
+      },
+      {
+        title: String(translateLabels("rutaPolacosTitle")),
+        description: String(translateLabels("rutaPolacosDescription")),
+        link: getLocalizedPermalink("/glaciar-polacos")
+
+      },
+      {
+        title: String(translateLabels("rutaFalsoPolacosTitle")),
+        description: String(translateLabels("rutaFalsoPolacosDescription")),
+        link: getLocalizedPermalink("/falso-polacos")
+
+      },
+    ]}
+    image={{
+      src: '~/assets/images/imagen1.png',
+      alt: String(translateLabels("content1imageAlt")),
+    }}
   >
     <Fragment slot="content">
-      <a class="h1_servicios" href="/homes/expediciones">
-        <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
-          {t.content.sectionTitle}
-        </h3>
-      </a>
-      {t.content.sectionDescription}
+      <a class="h1_servicios" href="/homes/expediciones"><h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">{String(translateLabels("content1linkTitle"))}</h3></a>
+      {String(translateLabels("content1linkDescription"))}
     </Fragment>
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    isAfterContent
+    items={[
+      {
+        title: String(translateLabels("trekkingCortoTitle")),
+        description: String(translateLabels("trekkingCortoDescription")),
+        link: getLocalizedPermalink("/trekking_corto")
+
+        
+      },
+      {
+        title: String(translateLabels("trekkingLargoTitle")),
+        description: String(translateLabels("trekkingLargoDescription")),
+        link: getLocalizedPermalink("/trekking_largo")
+
+      },
+      {
+        title: String(translateLabels("trekkingAvionTitle")),
+        description: String(translateLabels("trekkingAvionDescription")),
+        link: getLocalizedPermalink("/trekking_avion")
+
+      },
+    ]}
+    image={{
+      src: '~/assets/images/imagen1.jpg',
+      alt: String(translateLabels("content2imageAlt")),
+    }}
+  >
+  <Fragment slot="content">
+    <a class="h1_servicios" href="/homes/trekkings"><h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">{String(translateLabels("content2linkTitle"))}</h3></a>
+    {String(translateLabels("content2linkDescription"))}
+  </Fragment>
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+
+  <!-- Content Widget **************** -->
+
+  <Content
+    isReversed
+    isAfterContent
+    items={[
+       {
+        title: String(translateLabels("serviciosCiudadTitle")),
+        description: '',
+        icon: 'tabler:building',
+      },
+      {
+        title: String(translateLabels("serviciosTransporteTitle")),
+        description: '',
+        icon: 'tabler:car',
+      },
+      {
+        title: String(translateLabels("serviciosPenitentesTitle")),
+        description: '',
+        icon: 'tabler:mountain',
+      },
+      {
+        title: String(translateLabels("serviciosMulasTitle")),
+        description: '',
+        icon: 'tabler:horse',
+      },
+      {
+        title: String(translateLabels("serviciosCampamentosBaseTitle")),
+        description: '',
+        icon: 'tabler:mountain',
+      },
+      {
+        title: String(translateLabels("serviciosCampamentosAlturaTitle")),
+        description: '',
+        icon: 'tabler:home',
+      },
+      {
+        title: String(translateLabels("serviciosPorteadoresTitle")),
+        description: '',
+        icon: 'tabler:shoe',
+      },
+      {
+        title: String(translateLabels("serviciosAsesoramientoTitle")),
+        description: '',
+        icon: 'tabler:phone',
+      },
+      {
+        title: String(translateLabels("serviciosPermisosTitle")),
+        description: '',
+        icon: 'tabler:pencil',
+      },
+    ]}
+    image={{
+      src: '~/assets/images/imagen3.png',
+      alt: String(translateLabels("content3imageAlt")),
+    }}
+  >
+  <Fragment slot="content">
+    <a class="h1_servicios" href="/homes/servicios"><h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">{String(translateLabels("content3linkTitle"))}</h3></a>
+    {String(translateLabels("content3linkDescription"))}
+  </Fragment>
+
     <Fragment slot="bg">
       <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
     </Fragment>
   </Content>
 
   <InformationCards
-    title={t.informationCards.title}
-    subtitle={t.informationCards.subtitle}
-  />
+  title={String(translateLabels("informationCardsTitle"))}
+  subtitle={String(translateLabels("informationCardsSubtitle"))}
+  prices={[
+    {
+      title: String(translateLabels("expedicionesTitle")),
+      subtitle: String(translateLabels("expedicionesSubtitle")),
+      imageSrc: '/images/WhatsApp_icon.png',
+      callToAction: { text: String(translateLabels("expedicionesButton")), href: '#' },
+    },
+    {
+      title: String(translateLabels("standardTitle")),
+      subtitle: String(translateLabels("standardSubtitle")),
+      imageSrc: '/images/WhatsApp_icon.png',
+      callToAction: { text: String(translateLabels("standardButton")), href: '#' },
+      hasRibbon: true,
+      ribbonTitle: String(translateLabels("standardRibbon")),
+    },
+    {
+      title: String(translateLabels("premiumTitle")),
+      subtitle: String(translateLabels("premiumSubtitle")),
+      imageSrc: '/images/WhatsApp_icon.png',
+      callToAction: { text: String(translateLabels("premiumButton")), href: '#' },
+    },
+  ]}
+/>
+
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+
 </Layout>
