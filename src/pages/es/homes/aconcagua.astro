@@ -1,0 +1,127 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Whatsapp from  '~/components/widgets/Whatsapp.astro';
+import Hero2 from '~/components/widgets/Hero2.astro';
+import Steps2 from '~/components/widgets/Steps2.astro';
+import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+
+const metadata = {
+  title: 'Aconcagua',
+};
+---
+
+<Layout metadata={metadata}>
+  <Whatsapp
+  images={[
+    {
+      src: '~/assets/images/WhatsApp_icon.png',
+      alt: 'Centro',
+    }
+  ]}
+/>
+
+ 
+
+  <!-- Hero2 Widget ******************* -->
+
+  <Hero2
+    tagline="VISITÁ"
+    actions={[
+      { text: 'Expediciones', href: '/homes/expediciones' },
+      { variant: 'primary', target: '_blank', text: 'Trekkings', href: '/homes/trekkings' },
+      { text: 'Servicios', href: '/homes/servicios' },
+    ]}
+    image={{
+      src: '~/assets/images/aconcagua_pagina.jpg',
+      alt: 'Aconcagua',
+    }}
+  >
+    <Fragment slot="title">
+      <span class="text-accent dark:text-white highlight"
+        >Aconcagua</span
+      ><br /> el gigante de América <br />
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      <span class="hidden sm:inline">
+        El cerro Aconcagua, con sus imponentes 6.959 metros sobre el nivel del mar, <span class="font-semibold">es la montaña más alta de América</span>
+      </span>
+      y una de las más majestuosas del planeta. Situada en la provincia de Mendoza, Argentina, cerca de la frontera con Chile, esta impresionante cumbre atrae a alpinistas y aventureros de todas partes del mundo.
+      
+      <br>
+      <span class="font-semibold">¿Querés conocerlo? Sumáte a Aconcagua Pared Sur Expediciones.</span>
+      
+    </Fragment>
+  </Hero2>
+
+  <!-- Features Widget *************** -->
+
+ 
+
+  <!-- Content Widget **************** -->
+
+  
+
+  <!-- Content Widget **************** -->
+
+  
+
+
+<Features2
+title="Sobre el Aconcagua"
+subtitle="El cerro Aconcagua se alza como el corazón y el principal atractivo del Parque Provincial Aconcagua, una de las áreas protegidas más impactantes de Argentina. Este parque abarca 71.000 hectáreas en la provincia de Mendoza, ubicado a unos kilómetros al este de la frontera con Chile. Además, las aguas del parque desembocan en Mendoza a través de los ríos Horcones, Vacas y Cuevas. Asimismo, el Aconcagua es la montaña más alta del Hemisferio Sur y Occidental, y la cima más elevada del continente americano. Es, por tanto, un destacado ícono en el prestigioso circuito de las Siete Cumbres. Además, resulta ideal para iniciarse en el montañismo de gran altitud, ya que su elevación, junto con sus condiciones geográficas y climáticas, ofrece un escenario perfecto tanto para desafíos moderados como para prepararse para las mayores proezas deportivas que demandan las cumbres de ocho mil metros."
+>
+<Fragment slot="bg">
+  <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+</Fragment>
+</Features2>
+
+  <!-- Content Widget **************** -->
+
+
+  <!-- Steps2 Widget ****************** -->
+
+  <Steps2
+    title="¿Tenés alguna consulta?"
+    subtitle="Contactános para que un especialista de Aconcagua Pared Sur pueda asesorarte."
+    callToAction={{
+      text: 'Click aquí',
+      href: 'https://api.whatsapp.com/send?phone=%2B542612506186&context=ARAKVNkBciDCVU2YK3h6Pr-I83LUqvxpNzuus0kKKhPgMULM3qxlbKZNQCDa9w1Ys6CR1KGJpBKRqK2LT9M-hFEc9zzkakb5gExwzs92SnllPVLL08hj7ldILl3mURX5GBzeVaQJ45Ji-3y8k0XN_7GxgA&source=FB_Page&app=facebook&entry_point=page_cta&fbclid=IwZXh0bgNhZW0CMTAAAR0mU9mJmTH66UDAexPgGXIosmHZ-azP4rf8nnsFRY0qlfiEZmRH2ph_RCs_aem_cZW7xvAZ-jsKw12LyXp3mQ',
+    }}
+    items={[
+      {
+        title: 'Email',
+        description: 'paredsur.aconcagua@gmail.com',
+        icon: 'tabler:mail',
+      },
+      {
+        title: 'Teléfono',
+        description: '+54 261 250-6186',
+        icon: 'tabler:headset',
+      },
+      {
+        title: 'Instagram',
+        description: '@aconcaguaparedsur',
+        icon: 'tabler:brand-instagram'
+      },
+      {
+        title: 'Facebook',
+        description: '@aconcaguaparedsur',
+        icon: 'tabler:brand-facebook'
+      },
+    ]}
+  />
+
+  <!-- BlogLatestPost Widget **************** -->
+
+  <BlogLatestPosts
+    id="blog"
+    title="¿Estás con ganas de conocer el Aconcagua?"
+    information={`Explorá algunos de los paquetes y servicios que tenemos para vos.`}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </BlogLatestPosts>
+</Layout>

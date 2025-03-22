@@ -1,0 +1,74 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Content from '~/components/widgets/Content.astro';
+import Whatsapp from  '~/components/widgets/Whatsapp.astro';
+import Hero4 from '~/components/widgets/Hero4.astro';
+import InformationCards from '~/components/widgets/InformationCards.astro';
+import { labels } from '~/i18n/ui.ts';
+import { useTranslations } from '~/i18n/utils.ts';
+import { languageList } from '~/i18n/ui.ts';
+export interface Props {
+  title: string;
+  lang: 'es' | 'en';
+}
+
+const metadata = {
+  title: 'Aconcagua Pared Sur',
+  ignoreTitleTemplate: true,
+};
+
+const lang = 'es';
+const t = labels[lang];
+const translateLabels = useTranslations(
+  currentLang as keyof typeof languageList
+);
+---
+
+<Layout metadata={metadata}>
+  <Whatsapp
+  images={[
+    {
+      src: '~/assets/images/WhatsApp_icon.png',
+      alt: 'Centro',
+    }
+  ]}
+/>
+
+  <Hero4 images={[
+    '~/assets/images/imagen1.png',
+    '~/assets/images/imagen3.png',
+  ]}>
+    <Fragment slot="title">
+      {t.hero.title} <span class="text-accent dark:text-white highlight"> Aconcagua</span>
+      <span class="hidden xl:inline"> {t.hero.subtitle}</span>
+    </Fragment>
+    <Fragment slot="subtitle">
+      <span class="sm:inline">{t.hero.description}</span>
+    </Fragment>
+  </Hero4>
+
+  <Content
+    isReversed
+    tagline={t.content.tagline}
+    title={t.content.title}
+    items={t.content.items}
+    image={{ src: '~/assets/images/imagen1.png', alt: 'Imagen1' }}
+  >
+    <Fragment slot="content">
+      <a class="h1_servicios" href="/homes/expediciones">
+        <h3 class="text-2xl font-bold tracking-tight dark:text-white sm:text-3xl mb-2">
+          {t.content.sectionTitle}
+        </h3>
+      </a>
+      {t.content.sectionDescription}
+    </Fragment>
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </Content>
+
+  <InformationCards
+    title={t.informationCards.title}
+    subtitle={t.informationCards.subtitle}
+  />
+</Layout>

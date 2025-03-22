@@ -1,0 +1,34 @@
+---
+import { Icon } from 'astro-icon/components';
+import type { Brands as Props } from '~/types';
+
+import Image from '~/components/common/Image.astro';
+import Headline from '~/components/ui/Headline.astro';
+
+const {
+  title = '',
+  subtitle = '',
+  tagline = '',
+  icons = [],
+  images = [],
+
+} = Astro.props;
+---
+
+  <Headline title={title} subtitle={subtitle} tagline={tagline} />
+
+  <div class="flex flex-wrap justify-center gap-x-6 sm:gap-x-12 lg:gap-x-24">
+    {icons && icons.map((icon) => <Icon name={icon} class="py-3 lg:py-5 w-12 h-auto mx-auto sm:mx-0 text-gray-500" />)}
+    {
+      images &&
+        images.map(
+          (image) =>
+            image.src && (
+              <div class="whatsapp">
+              <a href="https://api.whatsapp.com/send?phone=%2B542612506186&context=ARAKVNkBciDCVU2YK3h6Pr-I83LUqvxpNzuus0kKKhPgMULM3qxlbKZNQCDa9w1Ys6CR1KGJpBKRqK2LT9M-hFEc9zzkakb5gExwzs92SnllPVLL08hj7ldILl3mURX5GBzeVaQJ45Ji-3y8k0XN_7GxgA&source=FB_Page&app=facebook&entry_point=page_cta&fbclid=IwZXh0bgNhZW0CMTAAAR0mU9mJmTH66UDAexPgGXIosmHZ-azP4rf8nnsFRY0qlfiEZmRH2ph_RCs_aem_cZW7xvAZ-jsKw12LyXp3mQ" target="_blank"><Image src={image.src} alt={image.alt || ''} width={55} height={55} class="wpp_img"/></a>
+              </div>
+            )
+        )
+    }
+  </div>
+

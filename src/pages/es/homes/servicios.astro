@@ -1,0 +1,131 @@
+---
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import Features2 from '~/components/widgets/Features2.astro';
+import Whatsapp from  '~/components/widgets/Whatsapp.astro';
+import Hero from '~/components/widgets/Hero.astro';
+import Layout from '~/layouts/PageLayout.astro';
+
+const metadata = {
+  title: 'Servicios Logísticos',
+};
+---
+
+<Layout metadata={metadata}>
+  <Whatsapp
+  images={[
+    {
+      src: '~/assets/images/WhatsApp_icon.png',
+      alt: 'Centro',
+    }
+  ]}
+/>
+
+  <!-- Hero Widget ******************* -->
+
+  <Hero
+    tagline="Profesionalismo, calidad y personalización"
+    image={{
+      src: '~/assets/images/imagen3.png',
+      alt: 'Servicios',
+    }}
+  >
+    <Fragment slot="title">
+      Garantizá una excelente experiencia en Aconcagua con nuestros <br />
+      <span class="text-accent dark:text-white highlight"> Servicios Logísticos</span>
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      Con más de 25 años de experiencia en expediciones al Aconcagua, nos dedicamos meticulosamente a cada detalle para asegurar una experiencia excepcional para nuestros clientes. Poseemos y gestionamos todos los aspectos de nuestros servicios, desde mulas y campamentos hasta la infraestructura y el equipamiento necesario. Esta integración nos permite ofrecer un servicio altamente personalizado y confiable, atendiendo directamente cada necesidad de nuestros clientes.
+    </Fragment>
+  </Hero>
+
+  <!-- Features2 Widget ************** -->
+
+  <Features2
+    title="Explorá nuestros servicios"
+    subtitle="Descubrí todo lo que tenemos para ofrecerte"
+    columns={3}
+    items={[
+      {
+        title: 'Servicios en Ciudad de Mendoza',
+        description: `Alojamiento, asistencia y comidas por la ciudad de Mendoza.`,
+        icon: 'tabler:building',
+      },
+      {
+        title: 'Transporte ',
+        description:
+          'Transfers privados desde Aeropuerto a Hotel, Penitentes y entradas al Parque Nacional.',
+        icon: 'tabler:car',
+      },
+      {
+        title: 'Servicios en Penitentes',
+        description:
+          'Alojamiento, asistencia y comidas en Penitentes.',
+        icon: 'tabler:mountain',
+      },
+      {
+        title: 'Mulas para transporte',
+        description:
+          'Traslado de carga en mulas desde Horcones a Confluencia, Plaza de Mulas y Plaza Argentina.',
+        icon: 'tabler:horse', 
+      },
+      {
+        title: 'Servicios en campamentos base',
+        description:
+          'Alojamiento en domos, asistencia, comidas, Wi-Fi, duchas en Confluencia, Plaza de Mulas y Plaza Argentina.',
+        icon: 'tabler:mountain',
+
+      },
+      {
+        title: 'Servicios en campamentos de altura',
+        description:
+          'Alojamiento en Nido de Cóndores y Berlín.',
+        icon: 'tabler:home'
+      },
+      {
+        title: 'Servicio de porteadores',
+        description:
+          'Traslado de cargas en altura',
+        icon: 'tabler:shoe',
+      },
+    
+      
+     
+      {
+        title: 'Asesoramiento y comunicación' ,
+        description:
+          'Orientación experta y soporte continuo.',
+        icon: 'tabler:phone',
+      },
+    
+      {
+        title: 'Gestión de permisos oficiales',
+        description:
+          'Ejecución de trámites estatles para el Parque Provincial Aconcagua.',
+        icon: 'tabler:pencil', 
+      },
+   
+    ]}
+  />
+
+  <!-- Content Widget **************** -->
+
+  
+
+  <!-- Testimonials Widget *********** -->
+
+
+  <!-- CallToAction Widget *********** -->
+
+  <CallToAction
+    actions={[
+      {
+        variant: 'primary',
+        text: 'CLICK AQUÍ',
+        href: '/contact',
+      },
+    ]}
+    title="Solicitá una cotización"
+    subtitle="Para los servicios logísticos de tu expedición a medida"
+  />
+</Layout>

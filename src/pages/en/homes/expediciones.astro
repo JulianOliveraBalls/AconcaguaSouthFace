@@ -1,0 +1,189 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import Whatsapp from  '~/components/widgets/Whatsapp.astro';
+import Header from '~/components/widgets/Header.astro';
+import Hero2 from '~/components/widgets/Hero2.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import Testimonials from '~/components/widgets/Testimonials.astro';
+
+
+
+
+import { headerData } from '~/navigation';
+import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+
+const metadata = {
+  title: 'Expediciones',
+};
+---
+
+<Layout metadata={metadata}>
+  <Whatsapp
+  images={[
+    {
+      src: '~/assets/images/WhatsApp_icon.png',
+      alt: 'Centro',
+    }
+  ]}
+/>
+
+
+  <Fragment slot="header">
+    <Header
+      {...headerData}
+      actions={[
+        
+        {
+          variant: 'primary',
+          text: 'Reservar',
+          href: "https://api.whatsapp.com/send?phone=%2B542612506186&context=ARAKVNkBciDCVU2YK3h6Pr-I83LUqvxpNzuus0kKKhPgMULM3qxlbKZNQCDa9w1Ys6CR1KGJpBKRqK2LT9M-hFEc9zzkakb5gExwzs92SnllPVLL08hj7ldILl3mURX5GBzeVaQJ45Ji-3y8k0XN_7GxgA&source=FB_Page&app=facebook&entry_point=page_cta&fbclid=IwZXh0bgNhZW0CMTAAAR0mU9mJmTH66UDAexPgGXIosmHZ-azP4rf8nnsFRY0qlfiEZmRH2ph_RCs_aem_cZW7xvAZ-jsKw12LyXp3mQ",
+        },
+      ]}
+      isSticky
+    />
+  </Fragment>
+
+  <!-- Hero2 Widget ******************* -->
+
+  <Hero2
+    tagline="Expediciones a Aconcagua"
+    image={{
+      src: '~/assets/images/360_travesia.jpg',
+      alt: 'Expedicion al Aconcagua',
+    }}
+  >
+    <Fragment slot="title">
+      Elegí tu ruta hacia la <br /> cumbre de <span class="text-accent dark:text-white highlight"
+        >América.</span
+      ><br />
+    </Fragment>
+
+    <Fragment slot="subtitle">
+      <span class="hidden sm:inline">
+        Tenemos un equipo especializado que garantiza una excelente logística.<span class="font-semibold"> Estamos en cada detalle.</span> Nuestras expediciones varían dependiendo la duración y las rutas que elijas. 
+        Somos montañistas experimentados, conocemos las necesidades de nuestros clientes y nos 
+        encargamos de que ellos se concentren únicamente en aclimatarse y mantenerse fuertes para llegar a la
+         cumbre.</span
+      >
+    </Fragment>
+  </Hero2>
+
+  <!-- Features Widget *************** -->
+
+
+  <BlogLatestPosts
+    id="blog"
+    title="Expediciones al Aconcagua."
+    information={`Explorá las expediciones que tenemos para ofrecerte y consulta los precios.`}
+  >
+    <Fragment slot="bg">
+      <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>
+    </Fragment>
+  </BlogLatestPosts>
+
+  <!-- Content Widget **************** -->
+
+  <!-- Content Widget **************** -->
+
+  <!-- Content Widget **************** -->
+
+  
+
+  <!-- Content Widget **************** -->
+
+
+  <!-- FAQs Widget ******************* -->
+  <Testimonials
+  title="Testimonios de Nuestros Clientes."
+  testimonials={[
+    {
+      testimonial: 'Llevo guiando en Aconcagua desde 2006 y desde el primer momento encontré en Pared Sur la excelencia en servicio. Tantos años escalando juntos nos convirtió en una gran familia.',
+      name: 'Osvaldo Cortez',
+      job: 'La Paz, Bolivia',
+      image: {
+        src: '~/assets/images/comentario_expedicion.jpeg',
+        alt: 'Osvaldo Cortez Image',
+      },
+    },
+    {
+      testimonial: `Desde la primera expedición con Pared Sur, me di cuenta de que estaba en las mejores manos. La organización y el conocimiento del equipo nos llevaron a la cumbre con total seguridad. Sin duda, seguiré eligiendo Pared Sur para mis futuras aventuras.`,
+      name: 'Carlos Mena',
+      job: 'Santiago, Chile',
+      image: {
+        src: '~/assets/images/escalador_2.png',
+        alt: 'Carlos Mena Image',
+      },
+    },
+    {
+      testimonial: `Las expediciones con Pared Sur son una experiencia única. La atención al detalle y el profesionalismo del equipo hicieron de nuestra travesía una aventura inolvidable. Recomiendo encarecidamente sus servicios a todos los amantes de la montaña.`,
+      name: 'Ana López',
+      job: 'Mendoza, Argentina',
+      image: {
+        src: '~/assets/images/expediciones_3.jpg',
+        alt: 'Ana López Image',
+      },
+    },
+    {
+      testimonial: 'Llevo guiando en Aconcagua desde 2006 y desde el primer momento encontré en Pared Sur la excelencia en servicio. Tantos años escalando juntos nos convirtió en una gran familia.',
+      name: 'Osvaldo Cortez',
+      job: 'La Paz, Bolivia',
+      image: {
+        src: '~/assets/images/comentario_expedicion.jpeg',
+        alt: 'Osvaldo Cortez Image',
+      },
+    },
+    {
+      testimonial: 'Llevo guiando en Aconcagua desde 2006 y desde el primer momento encontré en Pared Sur la excelencia en servicio. Tantos años escalando juntos nos convirtió en una gran familia.',
+      name: 'Osvaldo Cortez',
+      job: 'La Paz, Bolivia',
+      image: {
+        src: '~/assets/images/comentario_expedicion.jpeg',
+        alt: 'Osvaldo Cortez Image',
+      },
+    },
+    {
+      testimonial: 'Llevo guiando en Aconcagua desde 2006 y desde el primer momento encontré en Pared Sur la excelencia en servicio. Tantos años escalando juntos nos convirtió en una gran familia.',
+      name: 'Osvaldo Cortez',
+      job: 'La Paz, Bolivia',
+      image: {
+        src: '~/assets/images/comentario_expedicion.jpeg',
+        alt: 'Osvaldo Cortez Image',
+      },
+    },
+    {
+      testimonial: 'Llevo guiando en Aconcagua desde 2006 y desde el primer momento encontré en Pared Sur la excelencia en servicio. Tantos años escalando juntos nos convirtió en una gran familia.',
+      name: 'Osvaldo Cortez',
+      job: 'La Paz, Bolivia',
+      image: {
+        src: '~/assets/images/comentario_expedicion.jpeg',
+        alt: 'Osvaldo Cortez Image',
+      },
+    },
+  ]}
+/>
+
+
+
+  <CallToAction
+  actions={[
+    {
+      variant: 'primary',
+      target: '_blank',
+      text: 'Servicios',
+      href: '/homes/servicios',
+    },
+  ]}
+>
+  <Fragment slot="title">Prefieres escalar por tu cuenta?</Fragment>
+
+  <Fragment slot="subtitle">
+    Descubre los servicios que ofrecemos...
+  </Fragment>
+</CallToAction>
+  <!-- Steps2 Widget ****************** -->
+
+ 
+
+  <!-- BlogLatestPost Widget **************** -->
+
+</Layout>

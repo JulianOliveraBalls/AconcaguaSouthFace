@@ -1,0 +1,104 @@
+---
+import Image from '~/components/common/Image.astro';
+import Button from '~/components/ui/Button.astro';
+import type { CallToAction } from '~/types';
+
+
+export interface Props {
+  id?: string;
+  title?: string;
+  subtitle?: string;
+  tagline?: string;
+  content?: string;
+  actions?: string | CallToAction[];
+  images: string[];
+}
+
+const {
+  id,
+  title = await Astro.slots.render('title'),
+  subtitle = await Astro.slots.render('subtitle'),
+  tagline,
+  content = await Astro.slots.render('content'),
+  actions = await Astro.slots.render('actions'),
+  images = [],
+} = Astro.props;
+---
+
+
+<section class="relative w-full h-screen overflow-hidden flex items-center justify-center text-center text-white" {...id ? { id } : {}}>
+  <!-- Carrusel de fondo con filtro aplicado a las imágenes -->
+  <div class="absolute inset-0 w-full h-full overflow-hidden z-0">
+    <div class="carousel relative w-full h-full">
+      {images.map((image, index) => (
+        <div 
+          class="carousel-slide absolute top-0 left-0 w-full h-full transition-opacity duration-1000" 
+          data-index={index}
+        >
+          <Image class="w-full h-full object-cover brightness-50" src={image} alt={`Slide ${index + 1}`} />
+        </div>
+      ))}
+    </div>
+  </div>
+  
+  <!-- Contenido superpuesto sin fondo oscuro -->
+  <div class="relative z-10 max-w-4xl px-6 p-6 rounded-lg">
+    {tagline && (
+      <p class="text-lg font-semibold uppercase" set:html={tagline} />
+    )}
+    {title && (
+      <h1 class="text-4xl md:text-5xl font-bold mb-4 italic text-white" 
+          style="background-clip: border-box; background-image: none; color: #fff; font-style: italic; text-shadow: 1px 1px 5px #1c1c1c;" 
+          set:html={title} 
+      />
+    )}
+    {subtitle && <p class="text-lg mb-6 text-white" set:html={subtitle} />}
+    {actions && (
+      <div class="flex flex-wrap justify-center gap-4">
+        {Array.isArray(actions) ? (
+          actions.map((action) => (
+            <Button {...(action || {})} />
+          ))
+        ) : (
+          <Fragment set:html={actions} />
+        )}
+      </div>
+    )}
+    {content && <Fragment set:html={content} />}
+  </div>
+
+  <!-- Botones de navegación minimalistas -->
+  <button class="absolute left-4 top-1/2 transform -translate-y-1/2 text-white text-2xl z-20" id="prevSlide">
+    &lt;
+  </button>
+  <button class="absolute right-4 top-1/2 transform -translate-y-1/2 text-white text-2xl z-20" id="nextSlide">
+    &gt;
+  </button>
+</section>
+
+<script>
+  let currentIndex = 0;
+  const slides = document.querySelectorAll('.carousel-slide');
+
+  function showSlide(index) {
+  slides.forEach((slide, i) => {
+    const slideElement = slide as HTMLElement; 
+    slideElement.style.opacity = i === index ? '1' : '0';
+  });
+}
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % slides.length;
+    showSlide(currentIndex);
+  }
+
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+    showSlide(currentIndex);
+  }
+
+  document.getElementById('nextSlide')?.addEventListener('click', nextSlide);
+  document.getElementById('prevSlide')?.addEventListener('click', prevSlide);
+
+  setInterval(nextSlide, 5000);
+  showSlide(currentIndex);
+</script>
