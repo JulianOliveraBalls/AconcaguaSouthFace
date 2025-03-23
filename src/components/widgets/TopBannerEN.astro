@@ -1,0 +1,58 @@
+---
+// TopBanner.astro
+const { link = "#" } = Astro.props;
+---
+
+<style>
+  .top-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #2563eb; /* Azul */
+    color: white;
+    padding: 10px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    z-index: 50;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+
+  .close-btn:hover {
+    opacity: 0.7;
+  }
+
+  .reserve-btn {
+    background-color: #144e9c; /* Amarillo */
+    color: black;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+
+  .reserve-btn:hover {
+    background-color: #144e9c;
+  }
+</style>
+
+<div id="top-banner" class="top-banner">
+  <p>JOIN NOW NEXT SEASON 2025 / 2026</p>
+  <a href={link} class="reserve-btn">NOW BOOKING</a>
+  <button class="close-btn" onclick="document.getElementById('top-banner').style.display = 'none'; document.querySelector('.header-container').classList.add('banner-hidden');">✕</button>
+</div>

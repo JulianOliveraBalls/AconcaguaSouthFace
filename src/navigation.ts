@@ -7,7 +7,7 @@ import { languageList } from "./i18n/ui"; // Importar lista de idiomas
 const currentLang = "es"; // Este valor debería ser dinámico
 const translateLabels = useTranslations(currentLang as keyof typeof languageList);
 
-export function getLocalizedPermalink(path, lang = "es") {
+export function getLocalizedPermalink(path, lang = "en") {
   return getRelativeLocaleUrl(lang, getPermalink(path));
 }
 

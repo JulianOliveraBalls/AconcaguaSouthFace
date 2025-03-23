@@ -1,15 +1,15 @@
 ---
 import { Icon } from 'astro-icon/components';
 import ToggleMenu from '~/components/common/ToggleMenu.astro';
-import Button from '~/components/ui/Button.astro';
-import { getHomePermalink } from '~/utils/permalinks';
-import { trimSlash} from '~/utils/permalinks';
-import type { CallToAction } from '~/types';
+import { getHomePermalink, trimSlash, getPermalink } from '~/utils/permalinks';
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { languageList } from '~/i18n/ui';
-import { getPermalink } from '~/utils/permalinks';
+const link = "#"; // O cualquier URL que desees usar
+import type { CallToAction } from '~/types';
 
-export function getLocalizedPermalink(path, lang = "es") {
+const currentLang = Astro.currentLocale ?? "es";
+
+export function getLocalizedPermalink(path: string, lang = currentLang) {
   return getRelativeLocaleUrl(lang, getPermalink(path));
 }
 
@@ -42,8 +42,6 @@ export interface Props {
 const {
   id = 'header',
   links = [],
-  actions = [],
-  socialLinks = [],
   isSticky = false,
   isDark = false,
   isFullWidth = false,
@@ -53,94 +51,167 @@ const {
 const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
 ---
 
-<header
-  class:list={[
-    { sticky: isSticky, relative: !isSticky, dark: isDark },
-    'top-0 z-40 flex-none mx-auto w-full border-b border-gray-50/0 transition-[opacity] ease-in-out',
-  ]}
-  {...isSticky ? { 'data-aw-sticky-header': true } : {}}
-  {...id ? { id } : {}}
->
-  <div class="absolute inset-0"></div>
-  <div
-    class:list={[
-      'relative text-default py-3 px-3 md:px-6 mx-auto w-full',
-      {
-        'md:flex md:justify-between': position !== 'center',
-      },
-      {
-        'md:grid md:grid-cols-3 md:items-center': position === 'center',
-      },
-      {
-        'max-w-7xl': !isFullWidth,
-      },
-    ]}
-  >
-    <div class:list={[{ 'mr-auto rtl:mr-0 rtl:ml-auto': position === 'right' }, 'flex justify-between']}>
-      <a class="flex items-center foto" href={getHomePermalink()}>
-      </a>
-      <div class="flex items-center md:hidden">
-        <ToggleMenu />
-      </div>
+<style>
+  .fixed-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 50;
+    transition: transform 0.3s ease;
+  }
+
+  .top-banner {
+    background-color: #144e9c; /* Azul */
+    color: white;
+    padding: 10px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  }
+
+  .close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    margin-left: 10px; /* Espacio entre los botones */
+  }
+
+  .close-btn:hover {
+    opacity: 0.7;
+  }
+
+  .reserve-btn {
+    background-color: white; /* Amarillo */
+    color: #144e9c;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.3s ease;
+  }
+
+  .reserve-btn:hover {
+    background-color: #c8c8c9;
+  }
+
+  .header-container {
+    transition: transform 0.3s ease;
+  }
+
+  .header-container.banner-hidden {
+    transform: translateY(-100%);
+  }
+</style>
+
+<div class="fixed-container">
+  <div id="top-banner" class="top-banner">
+    <p>SUMATE A LA PRÓXIMA TEMPORADA ACONCAGUA 2025 / 2026</p>
+    <div class="flex items-center">
+      <a href={link} class="reserve-btn">RESERVA AHORA</a>
+      <button class="close-btn" onclick="document.getElementById('top-banner').style.display = 'none';">✕</button>
     </div>
-    
-    <nav
-      class="items-center w-full md:w-auto hidden md:flex md:mx-5 text-default overflow-y-auto overflow-x-hidden md:overflow-y-visible md:overflow-x-auto md:justify-self-center"
-      aria-label="Main navigation"
-    >
-      <ul
-        class="flex flex-col md:flex-row md:self-center w-full md:w-auto text-xl md:text-[0.9375rem] tracking-[0.01rem] font-medium md:justify-center"
-      >
-       
+  </div>
+
+  <header
+    class:list={[
+      { sticky: isSticky, relative: !isSticky, dark: isDark },
+      'z-40 flex-none mx-auto w-full border-b border-gray-50/0 transition-[opacity] ease-in-out',
+    ]}
+    {...isSticky ? { 'data-aw-sticky-header': true } : {}}
+    {...id ? { id } : {}}
+  >
+    <div class="absolute inset-0"></div>
+    <div
+      class:list={[
+        'relative text-default py-3 px-3 md:px-6 mx-auto w-full',
         {
-          links.map(({ text, href, links }) => (
-            <li class={links?.length ? 'dropdown' : ''}>
-              {links?.length ? (
-                <>
-                  <button type="button" class="hover:text-link dark:hover:text-white px-4 py-3 flex items-center">
-                    {text}{' '}
-                    <Icon name="tabler:chevron-down" class="w-3.5 h-3.5 ml-0.5 rtl:ml-0 rtl:mr-0.5 hidden md:inline" />
-                  </button>
-                  <ul class="dropdown-menu md:backdrop-blur-md dark:md:bg-dark rounded md:absolute pl-4 md:pl-0 md:hidden font-medium md:bg-white/90 md:min-w-[200px] drop-shadow-xl">
-                    {links.map(({ text: text2, href: href2 }) => (
-                      <li>
-                        <a
-                          class:list={[
-                            'first:rounded-t last:rounded-b md:hover:bg-gray-100 hover:text-link dark:hover:text-white dark:hover:bg-gray-700 py-2 px-5 block whitespace-no-wrap',
-                            { 'aw-link-active': href2 === currentPath },
-                          ]}
-                          href={href2}
-                        >
-                          {text2}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </>
-              ) : (
-                <a
-                  class:list={[
-                    'hover:text-link dark:hover:text-white px-4 py-3 flex items-center',
-                    { 'aw-link-active': href === currentPath },
-                  ]}
-                  href={href}
-                >
-                  {text}
-                </a>
-              )}
-            </li>
-          ))
-        }
-        <li class="dropdown ml-auto group">
+          'md:flex md:justify-between': position !== 'center',
+        },
+        {
+          'md:grid md:grid-cols-3 md:items-center': position === 'center',
+        },
+        {
+          'max-w-7xl': !isFullWidth,
+        },
+      ]}
+    >
+      <div class:list={[{ 'mr-auto rtl:mr-0 rtl:ml-auto': position === 'right' }, 'flex justify-between']}>
+        <a class="flex items-center foto" href={getHomePermalink()}>
+        </a>
+        <div class="flex items-center md:hidden">
+          <ToggleMenu />
+        </div>
+      </div>
+
+      <nav
+        class="items-center w-full md:w-auto hidden md:flex md:mx-5 text-default overflow-y-auto overflow-x-hidden md:overflow-y-visible md:overflow-x-auto md:justify-self-center"
+        aria-label="Main navigation"
+      >
+        <ul
+          class="flex flex-col md:flex-row md:self-center w-full md:w-auto text-xl md:text-[0.9375rem] tracking-[0.01rem] font-medium md:justify-center"
+        >
+          {
+            links.map(({ text, href, links }) => (
+              <li class={links?.length ? 'dropdown' : ''}>
+                {links?.length ? (
+                  <>
+                    <button type="button" class="hover:text-link dark:hover:text-white px-4 py-3 flex items-center">
+                      {text}{' '}
+                      <Icon name="tabler:chevron-down" class="w-3.5 h-3.5 ml-0.5 rtl:ml-0 rtl:mr-0.5 hidden md:inline" />
+                    </button>
+                    <ul class="dropdown-menu md:backdrop-blur-md dark:md:bg-dark rounded md:absolute pl-4 md:pl-0 md:hidden font-medium md:bg-white/90 md:min-w-[200px] drop-shadow-xl">
+                      {links.map(({ text: text2, href: href2 }) => (
+                        <li>
+                          <a
+                            class:list={[
+                              'first:rounded-t last:rounded-b md:hover:bg-gray-100 hover:text-link dark:hover:text-white dark:hover:bg-gray-700 py-2 px-5 block whitespace-no-wrap',
+                              { 'aw-link-active': href2 === currentPath },
+                            ]}
+                            href={href2}
+                          >
+                            {text2}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                ) : (
+                  <a
+                    class:list={[
+                      'hover:text-link dark:hover:text-white px-4 py-3 flex items-center',
+                      { 'aw-link-active': href === currentPath },
+                    ]}
+                    href={href}
+                  >
+                    {text}
+                  </a>
+                )}
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div class="md:flex md:items-center md:justify-end py-3 md:py-3 ml-auto relative">
+        <div class="dropdown group relative">
           <button type="button" class="hover:text-link dark:hover:text-white px-4 py-4 flex items-center">
-            <Icon name="tabler:world" class="w-5 h-5 mr-1" /> 
+            <Icon name="tabler:world" class="w-5 h-5 mr-1" />
             <Icon name="tabler:chevron-down" class="w-3.5 h-3.5 ml-0.5 rtl:ml-0 rtl:mr-0.5 hidden md:inline" />
           </button>
-          <ul class="dropdown-menu md:backdrop-blur-md dark:md:bg-dark rounded md:absolute pl-4 md:pl-0 md:hidden group-hover:block font-medium md:bg-white/90 md:min-w-[200px] drop-shadow-xl">
+          <ul class="dropdown-menu absolute right-0 left-auto top-full md:backdrop-blur-md dark:md:bg-dark rounded pl-4 md:pl-0 md:hidden group-hover:block font-medium md:bg-white/90 md:min-w-[150px] drop-shadow-xl">
             {Object.entries(languageList).map(([key, label]) => (
               <li>
                 <a
-                  class="first:rounded-t last:rounded-b md:hover:bg-gray-100 hover:text-link dark:hover:text-white dark:hover:bg-gray-700 py-2 px-5 block whitespace-no-wrap"
+                  class="first:rounded-t last:rounded-b md:hover:bg-gray-100 hover:text-link dark:hover:text-white dark:hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap"
                   href={`/${key}`}
                 >
                   {label}
@@ -148,34 +219,8 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
               </li>
             ))}
           </ul>
-        </li>
-        
-        
-      </ul>
-    </nav>
-    
-    <div class="md:flex md:items-center md:justify-between py-3 md:py-3">
-      <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0 rtl:ml-0 rtl:-mr-2 rtl:md:ml-0 rtl:md:mr-4">
-        {socialLinks.map(({ ariaLabel, href, text, icon }) => (
-          <li>
-            <a
-              class="text-muted dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
-              aria-label={ariaLabel}
-              href={href}
-            >
-              {icon && <Icon name={icon} class="w-5 h-5" />}
-              <Fragment set:html={text} />
-            </a>
-          </li>
-        ))}
-      </ul>
-      {actions?.length ? (
-        <span class="ml-4 rtl:ml-0 rtl:mr-4">
-          {actions.map((btnProps) => (
-            <Button {...btnProps} class="ml-2 py-2.5 px-5.5 md:px-6 font-semibold shadow-none text-sm w-auto" />
-          ))}
-        </span>
-      ) : ('')}
+        </div>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
+</div>

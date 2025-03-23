@@ -18,28 +18,31 @@ const {
 <WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-7xl mx-auto ${classes?.container ?? ''}`} bg={bg}>
   <Headline title={title} subtitle={subtitle} tagline={tagline} />
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-    {prices.map(({ title, subtitle, callToAction, hasRibbon = false, ribbonTitle, imageSrc }) => (
+    {prices.map(({ title, subtitle, callToAction, hasRibbon = false, ribbonTitle, ribbonColor = 'bg-green-700', imageSrc }) => (
       <div class="relative flex flex-col items-center text-center p-6 rounded-lg shadow-lg bg-white dark:bg-slate-900">
         
-        <!-- Cinta (Ribbon) -->
+        <!-- Cinta (Ribbon) con color dinámico -->
         {hasRibbon && ribbonTitle && (
           <div class="absolute right-[-5px] 2xl:right-[-8px] rtl:right-auto rtl:left-[-8px] rtl:2xl:left-[-10px] top-[-5px] 2xl:top-[-10px] z-[1] h-[100px] w-[100px] overflow-hidden text-right">
-            <span class="absolute top-[19px] right-[-21px] rtl:right-auto rtl:left-[-21px] block w-full rotate-45 rtl:-rotate-45 bg-green-700 text-center text-[10px] font-bold uppercase leading-5 text-white shadow-[0_3px_10px_-5px_rgba(0,0,0,0.3)] before:absolute before:left-0 before:top-full before:z-[-1] before:border-[3px] before:border-r-transparent before:border-b-transparent before:border-l-green-800 before:border-t-green-800 before:content-[''] after:absolute after:right-0 after:top-full after:z-[-1] after:border-[3px] after:border-l-transparent after:border-b-transparent after:border-r-green-800 after:border-t-green-800 after:content-['']">
+            <span class={`absolute top-[19px] right-[-21px] rtl:right-auto rtl:left-[-21px] block w-full rotate-45 rtl:-rotate-45 ${ribbonColor} text-center text-[10px] font-bold uppercase leading-5 text-white shadow-[0_3px_10px_-5px_rgba(0,0,0,0.3)] before:absolute before:left-0 before:top-full before:z-[-1] before:border-[3px] before:border-r-transparent before:border-b-transparent before:border-l-green-800 before:border-t-green-800 before:content-[''] after:absolute after:right-0 after:top-full after:z-[-1] after:border-[3px] after:border-l-transparent after:border-b-transparent after:border-r-green-800 after:border-t-green-800 after:content-['']`}>
               {ribbonTitle}
             </span>
           </div>
         )}
 
-        <!-- Imagen con efecto hover -->
+        <!-- Imagen cuadrada -->
         {imageSrc && (
           <div class="w-full flex justify-center mb-4">
-            <img src={imageSrc} alt={title} class="w-32 h-32 object-cover rounded-full transition-transform duration-300 hover:scale-110 hover:opacity-90" />
+            <img src={imageSrc} alt={title} class="w-40 h-40 object-cover rounded-lg transition-transform duration-300 hover:scale-110 hover:opacity-90" />
           </div>
         )}
         
         <!-- Título -->
         {title && <h3 class="text-xl font-semibold uppercase tracking-wider mb-2">{title}</h3>}
-        
+
+        <!-- Línea separadora -->
+        <div class="w-20 border-t border-gray-400 my-2"></div>
+
         <!-- Subtítulo -->
         {subtitle && <p class="font-light text-lg text-gray-600 dark:text-slate-400 mb-4">{subtitle}</p>}
 

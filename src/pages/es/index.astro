@@ -3,6 +3,7 @@ import Layout from '~/layouts/PageLayout.astro';
 import Content from '~/components/widgets/Content.astro';
 import Whatsapp from  '~/components/widgets/Whatsapp.astro';
 import Hero4 from '~/components/widgets/Hero4.astro';
+import Publicity from '~/components/widgets/PublicityES.astro';
 import InformationCards from '~/components/widgets/InformationCards.astro';
 import { getRelativeLocaleUrl } from "astro:i18n";
 import { useTranslations } from "~/i18n/utils";
@@ -40,27 +41,14 @@ const metadata = {
     '~/assets/images/imagen1.png',
     '~/assets/images/imagen3.png',
   ]}>
-    <Fragment slot="title">
-      {String(translateLabels("heroTitle")).split('<span').map((part, index) => (
-        part.includes('</span>') ? (
-          <span key={index} class="text-accent dark:text-white highlight">{part.replace('</span>', '')}</span>
-        ) : (
-          part
-        )
-      ))}
-    </Fragment>
-
-    <Fragment slot="subtitle">
-      <span class="sm:inline">
-        {String(translateLabels("heroSubtitle")).split('<span').map((part, index) => (
-          part.includes('</span>') ? (
-            <span key={index} class="font-semibold">{part.replace('</span>', '')}</span>
-          ) : (
-            part
-          )
-        ))}
-      </span>
-    </Fragment>
+   <Fragment slot="title">
+    <span set:html={translateLabels("heroTitle")} />
+  </Fragment>
+  
+  <Fragment slot="subtitle">
+    <span class="sm:inline" set:html={translateLabels("heroSubtitle")} />
+  </Fragment>
+  
   </Hero4>
 
   <!-- Content Widget **************** -->
@@ -222,25 +210,29 @@ const metadata = {
     {
       title: String(translateLabels("expedicionesTitle")),
       subtitle: String(translateLabels("expedicionesSubtitle")),
-      imageSrc: '/images/WhatsApp_icon.png',
+      imageSrc: 'src/assets/images/expedicion_blog.jpg',
       callToAction: { text: String(translateLabels("expedicionesButton")), href: '#' },
     },
     {
       title: String(translateLabels("standardTitle")),
       subtitle: String(translateLabels("standardSubtitle")),
-      imageSrc: '/images/WhatsApp_icon.png',
+      imageSrc: 'src/assets/images/trekking.jpg',
       callToAction: { text: String(translateLabels("standardButton")), href: '#' },
       hasRibbon: true,
       ribbonTitle: String(translateLabels("standardRibbon")),
+      ribbonColor: 'bg-red-600', // Personalización de color
     },
     {
       title: String(translateLabels("premiumTitle")),
       subtitle: String(translateLabels("premiumSubtitle")),
-      imageSrc: '/images/WhatsApp_icon.png',
+      imageSrc: 'src/assets/images/mulas_transporte.JPG',
       callToAction: { text: String(translateLabels("premiumButton")), href: '#' },
     },
   ]}
 />
+<Publicity>
+  
+</Publicity>
 
     <Fragment slot="bg">
       <div class="absolute inset-0 bg-blue-50 dark:bg-transparent"></div>

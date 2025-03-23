@@ -1,0 +1,64 @@
+---
+const whatsappLink = "https://wa.me/1234567890"; // Reemplaza con tu número de WhatsApp
+const bannerImage = 'src/assets/images/bannerPublicidadEN.png'; // Ruta de la imagen del banner
+---
+
+<a href={whatsappLink} target="_blank" rel="noopener noreferrer" class="banner-container">
+  <div class="module_column">
+    <img 
+      src={bannerImage} 
+      alt="Publicidad"
+      class="banner-image"
+    />
+  </div>
+</a>
+
+<style scoped>
+  /* Contenedor del banner */
+  .banner-container {
+    display: block;
+    width: 90%; /* 70% del ancho del contenedor */
+    height: 25vw; /* Altura proporcional al ancho de la pantalla */
+    margin: 0 auto 20px; /* Centrado y margen inferior */
+    padding: 16px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    transition: box-shadow 0.3s ease;
+  }
+
+  .banner-container:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .module_column {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Imagen del banner */
+  .banner-image {
+    width: 100%;
+    height: 100%;
+    margin: 50px;
+    object-fit: cover;
+    border-radius: 12px;
+  }
+
+  /* Responsividad: en pantallas menores a 600px */
+  @media (max-width: 600px) {
+    .banner-container {
+      width: 90%; /* Se ajusta al 90% en móviles */
+      height: 30vw; /* Ajuste de altura proporcional */
+    }
+  }
+  @media (min-width: 1024px) {
+    .lg\:py-20 {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+}
+</style>
