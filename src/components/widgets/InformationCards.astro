@@ -20,7 +20,7 @@ const {
   <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
     {prices.map(({ title, subtitle, callToAction, hasRibbon = false, ribbonTitle, ribbonColor = 'bg-green-700', imageSrc }) => (
       <div class="relative flex flex-col items-center text-center p-6 rounded-lg shadow-lg bg-white dark:bg-slate-900">
-        
+
         <!-- Cinta (Ribbon) con color dinámico -->
         {hasRibbon && ribbonTitle && (
           <div class="absolute right-[-5px] 2xl:right-[-8px] rtl:right-auto rtl:left-[-8px] rtl:2xl:left-[-10px] top-[-5px] 2xl:top-[-10px] z-[1] h-[100px] w-[100px] overflow-hidden text-right">
@@ -32,11 +32,11 @@ const {
 
         <!-- Imagen cuadrada -->
         {imageSrc && (
-          <div class="w-full flex justify-center mb-4">
-            <img src={imageSrc} alt={title} class="w-40 h-40 object-cover rounded-lg transition-transform duration-300 hover:scale-110 hover:opacity-90" />
+          <div class="w-full mb-4">
+            <img src={imageSrc} alt={title} class="w-full h-auto object-cover rounded-lg transition-transform duration-300 hover:scale-110 hover:opacity-90" />
           </div>
         )}
-        
+
         <!-- Título -->
         {title && <h3 class="text-xl font-semibold uppercase tracking-wider mb-2">{title}</h3>}
 

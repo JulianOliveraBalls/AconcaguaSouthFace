@@ -19,7 +19,6 @@ export const headerData = {
       links: [
         { text: translateLabels("expeditions"), href: getLocalizedPermalink("/homes/expediciones") },
         { text: translateLabels("aconcagua_normal_route"), href: getLocalizedPermalink("/homes/saas") },
-        { text: translateLabels("aconcagua_extended_route"), href: getLocalizedPermalink("/homes/saas") },
         { text: translateLabels("aconcagua_360"), href: getLocalizedPermalink("/homes/saas") },
         { text: translateLabels("aconcagua_polish_glacier"), href: getLocalizedPermalink("/homes/saas") },
       ],
@@ -31,6 +30,8 @@ export const headerData = {
         { text: translateLabels("aconcagua_trek_francia"), href: getLocalizedPermalink("/homes/saas") },
         { text: translateLabels("aconcagua_trek_mulas"), href: getLocalizedPermalink("/homes/saas") },
         { text: translateLabels("aconcagua_trek_lagrimas"), href: getLocalizedPermalink("/homes/saas") },
+        { text: translateLabels("aconcagua_trek_others"), href: getLocalizedPermalink("/homes/saas") },
+
       ],
     },
     {
@@ -50,7 +51,7 @@ export const headerData = {
       links: [
         { text: translateLabels("local_company"), href: getLocalizedPermalink("/homes/saas") },
         { text: translateLabels("our_staff"), href: getLocalizedPermalink("/homes/saas") },
-        { text: translateLabels("professional_guides"), href: getLocalizedPermalink("/homes/saas") },
+        { text: translateLabels("history"), href: getLocalizedPermalink("/homes/saas") },
         { text: translateLabels("reasons_to_choose_us"), href: getLocalizedPermalink("/homes/saas") },
       ],
     },

@@ -26,7 +26,7 @@ const {
 ---
 
 
-<section class="relative w-full h-screen overflow-hidden flex items-center justify-center text-center text-white" {...id ? { id } : {}}>
+<section class="relative w-full h-screen overflow-hidden flex items-center justify-center text-center text-white mt-[5%]" {...id ? { id } : {}}>
   <!-- Carrusel de fondo con filtro aplicado a las imágenes -->
   <div class="absolute inset-0 w-full h-full overflow-hidden z-0">
     <div class="carousel relative w-full h-full">
@@ -101,4 +101,7 @@ const {
 
   setInterval(nextSlide, 5000);
   showSlide(currentIndex);
+
+
 </script>
+
