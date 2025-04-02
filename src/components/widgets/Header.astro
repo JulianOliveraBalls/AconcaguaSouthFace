@@ -79,52 +79,48 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
       text: translateLabels("expeditions"),
       href: getLocalizedPermalink("/homes/expediciones"), // URL de destino para "expeditions"
       links: [
-        { text: translateLabels("expeditions"), href: getLocalizedPermalink("/homes/expediciones") },
-        { text: translateLabels("aconcagua_normal_route"), href: getLocalizedPermalink("/homes/aconcagua-normal-route") },
-        { text: translateLabels("aconcagua_360"), href: getLocalizedPermalink("/homes/aconcagua-360") },
-        { text: translateLabels("aconcagua_polish_glacier"), href: getLocalizedPermalink("/homes/aconcagua-polish-glacier") },
+        { text: translateLabels("aconcagua_normal_route"), href: getLocalizedPermalink("/expeditions/rutaNormal") },
+        { text: translateLabels("aconcagua_360"), href: getLocalizedPermalink("/expeditions/travesia360") },
+        { text: translateLabels("aconcagua_polish_glacier"), href: getLocalizedPermalink("/expeditions/glaciarPolacos") },
       ],
     },
     {
       text: translateLabels("trekkings"),
       href: getLocalizedPermalink("/homes/trekkings"), // URL de destino para "trekkings"
       links: [
-        { text: translateLabels("aconcagua_trek_francia"), href: getLocalizedPermalink("/homes/aconcagua-trek-francia") },
-        { text: translateLabels("aconcagua_trek_mulas"), href: getLocalizedPermalink("/homes/aconcagua-trek-mulas") },
-        { text: translateLabels("aconcagua_trek_lagrimas"), href: getLocalizedPermalink("/homes/aconcagua-trek-lagrimas") },
-        { text: translateLabels("aconcagua_trek_others"), href: getLocalizedPermalink("/homes/aconcagua-trek-others") },
+        { text: translateLabels("aconcagua_trek_francia"), href: getLocalizedPermalink("/trekkings/plaza-francia") },
+        { text: translateLabels("aconcagua_trek_mulas"), href: getLocalizedPermalink("/trekkings/plaza-mulas") },
+        { text: translateLabels("aconcagua_trek_lagrimas"), href: getLocalizedPermalink("/trekkings/valle-lagrimas") },
+        { text: translateLabels("aconcagua_trek_arg"), href: getLocalizedPermalink("/trekkings/plaza-argentina") },
+        { text: translateLabels("aconcagua_trek_others"), href: getLocalizedPermalink("/trekkings/otros-trekkings") },
       ],
     },
     {
       text: translateLabels("services"),
       href: getLocalizedPermalink("/homes/servicios"), // URL de destino para "services"
       links: [
-        { text: translateLabels("full_assistance_service"), href: getLocalizedPermalink("/homes/full-assistance-service") },
-        { text: translateLabels("aconcagua_logistic_packages"), href: getLocalizedPermalink("/homes/aconcagua-logistic-packages") },
-        { text: translateLabels("base_camp_service"), href: getLocalizedPermalink("/homes/base-camp-service") },
-        { text: translateLabels("porters"), href: getLocalizedPermalink("/homes/porters") },
-        { text: translateLabels("mules_for_cargo_transport"), href: getLocalizedPermalink("/homes/mules-for-cargo-transport") },
+        { text: translateLabels("full_assistance_service"), href: getLocalizedPermalink("/services/complete-service") },
+        { text: translateLabels("aconcagua_logistic_packages"), href: getLocalizedPermalink("/services/logistics-packages") },
+        { text: translateLabels("base_camp_service"), href: getLocalizedPermalink("/services/base-camps") },
+        { text: translateLabels("porters"), href: getLocalizedPermalink("/services/porters") },
+        { text: translateLabels("mules_for_cargo_transport"), href: getLocalizedPermalink("/services/mules-transport") },
       ],
     },
     {
       text: translateLabels("about_us"),
       href: getLocalizedPermalink("/homes/nosotros"), // URL de destino para "about_us"
       links: [
-        { text: translateLabels("local_company"), href: getLocalizedPermalink("/homes/local-company") },
-        { text: translateLabels("our_staff"), href: getLocalizedPermalink("/homes/our-staff") },
-        { text: translateLabels("history"), href: getLocalizedPermalink("/homes/history") },
-        { text: translateLabels("reasons_to_choose_us"), href: getLocalizedPermalink("/homes/reasons-to-choose-us") },
+        { text: translateLabels("local_company"), href: getLocalizedPermalink("/about-us/local-company") },
+        { text: translateLabels("our_staff"), href: getLocalizedPermalink("/about-us/our-staff") },
+        { text: translateLabels("history"), href: getLocalizedPermalink("/about-us/our-history") },
+        { text: translateLabels("reasons_to_choose_us"), href: getLocalizedPermalink("/about-us/reasons") },
       ],
     },
     {
       text: translateLabels("aconcagua"),
       href: getLocalizedPermalink("/homes/aconcagua"), // URL de destino para "aconcagua"
       links: [
-        { text: translateLabels("about_aconcagua"), href: getLocalizedPermalink("/homes/about-aconcagua") },
-        { text: translateLabels("seven_summits"), href: getLocalizedPermalink("/homes/seven-summits") },
-        { text: translateLabels("location"), href: getLocalizedPermalink("/homes/location") },
-        { text: translateLabels("weather"), href: getLocalizedPermalink("/homes/weather") },
-        { text: translateLabels("wildlife"), href: getLocalizedPermalink("/homes/wildlife") },
+        { text: translateLabels("about_aconcagua"), href: getLocalizedPermalink("/homes/aconcagua") },
       ],
     },
   ],

@@ -14,8 +14,9 @@ export const labels = {
         aconcagua_360: "Aconcagua Travesía 360",
         aconcagua_polish_glacier: "Aconcagua Glaciar de los Polacos",
         trekkings: "Trekkings",
-        aconcagua_trek_francia: "Aconcagua Trekking Plaza Francia",
-        aconcagua_trek_mulas: "Aconcagua Trekking Largo - Plaza de Mulas",
+        aconcagua_trek_francia: "Aconcagua Trekking Plaza Francia - 3 días",
+        aconcagua_trek_mulas: "Aconcagua Trekking Largo - Plaza de Mulas - 7 días",
+        aconcagua_trek_arg: "Aconcagua Trekking Plaza Argentina",
         aconcagua_trek_lagrimas: "Aconcagua Trekking Valle de Lágrimas - Avión de los Uruguayos",
         aconcagua_trek_others: "Otros Trekkings",
         translate: "Traducir",
@@ -95,7 +96,9 @@ export const labels = {
         reserveNow: "RESERVA AHORA",
         certifications: "Certificaciones",
         season: "TEMPORADA 2024 – 2025",
-        termsConditionsTitle: "TÉRMINOS Y CONDICIONES"
+        termsConditionsTitle: "TÉRMINOS Y CONDICIONES",
+        cancellation_policy: "Políticas de cancelación"
+
 
     },
     en: {
@@ -108,9 +111,10 @@ export const labels = {
         aconcagua_360: "Aconcagua 360",
         aconcagua_polish_glacier: "Aconcagua Polish Glacier",
         trekkings: "Trekkings",
-        aconcagua_trek_francia: "Aconcagua Trek Plaza Francia",
-        aconcagua_trek_mulas: "Aconcagua Trek Plaza de Mulas",
-        aconcagua_trek_lagrimas: "Aconcagua Trek Tears Valley - Uruguayan Plane",
+        aconcagua_trek_francia: "Aconcagua Trekking Plaza Francia - 3 days",
+        aconcagua_trek_mulas: "Aconcagua Trekking Plaza de Mulas - 7 days",
+        aconcagua_trek_arg: "Aconcagua Trekking Plaza Argentina",
+        aconcagua_trek_lagrimas: "Aconcagua Trekking Tears Valley - Uruguayan Plane",
         aconcagua_trek_others: "Others Trekkings",
         translate: "Translate",
         help: "Help",
@@ -189,7 +193,8 @@ export const labels = {
         reserveNow: "RESERVE NOW",
         certifications: "Certifications",
         season: "2024 – 2025 SEASON",
-        termsConditionsTitle: "TERMS AND CONDITIONS"
+        termsConditionsTitle: "TERMS AND CONDITIONS",
+        cancellation_policy: "Cancellation Policies"
         
     }
 }
