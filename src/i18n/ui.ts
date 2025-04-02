@@ -5,6 +5,8 @@ export const languageList = {
 
 export const labels = {
     es: {
+         "join_next_season": "SUMATE A LA PRÓXIMA TEMPORADA",
+  "reserve_now": "RESERVA AHORA",
         language: "Idioma",
         expeditions: "Expediciones",
         aconcagua_normal_route: "Aconcagua Ruta Normal",
@@ -90,9 +92,13 @@ export const labels = {
         weather: "Clima",
         wildlife: "Vida Silvestre",
         joinNextSeason: "SUMATE A LA PRÓXIMA TEMPORADA ACONCAGUA 2025 / 2026",
-        reserveNow: "RESERVA AHORA"
+        reserveNow: "RESERVA AHORA",
+        certifications: "Certificaciones"
+
     },
     en: {
+          "join_next_season": "JOIN THE NEXT SEASON",
+  "reserve_now": "BOOK NOW",
         language: "Language",
         expeditions: "Expeditions",
         aconcagua_normal_route: "Aconcagua Normal Route",
@@ -178,6 +184,7 @@ export const labels = {
         weather: "Weather",
         wildlife: "Wildlife",
         joinNextSeason: "JOIN THE NEXT ACONCAGUA SEASON 2025 / 2026",
-        reserveNow: "RESERVE NOW"
+        reserveNow: "RESERVE NOW",
+        certifications: "Certifications"
     }
 }

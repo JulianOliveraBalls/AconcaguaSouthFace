@@ -1,18 +1,22 @@
 ---
 import { Icon } from 'astro-icon/components';
 import ToggleMenu from '~/components/common/ToggleMenu.astro';
-import { getHomePermalink, trimSlash, getPermalink } from '~/utils/permalinks';
-import { getRelativeLocaleUrl } from "astro:i18n";
-import { languageList } from '~/i18n/ui';
+import { getHomePermalink, trimSlash } from '~/utils/permalinks';
 const link = "#"; // O cualquier URL que desees usar
 import type { CallToAction } from '~/types';
+import { useTranslations } from "~/i18n/utils";
+import { languageList } from '~/i18n/ui';
+const currentLang = Astro.currentLocale || "es";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { getPermalink } from '~/utils/permalinks';
 
-const currentLang = Astro.currentLocale ?? "es";
+const translateLabels = useTranslations(
+  currentLang as keyof typeof languageList
+);
 
-export function getLocalizedPermalink(path: string, lang = currentLang) {
+export function getLocalizedPermalink(path, lang = "es") {
   return getRelativeLocaleUrl(lang, getPermalink(path));
 }
-
 interface Link {
   text?: string;
   href?: string;
@@ -41,7 +45,6 @@ export interface Props {
 
 const {
   id = 'header',
-  links = [],
   isSticky = false,
   isDark = false,
   isFullWidth = false,
@@ -49,6 +52,65 @@ const {
 } = Astro.props;
 
 const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
+
+ const headerData = {
+  links: [
+    {
+      text: translateLabels("expeditions"),
+      href: getLocalizedPermalink("/homes/expediciones"),
+      links: [
+        { text: translateLabels("expeditions"), href: getLocalizedPermalink("/homes/expediciones") },
+        { text: translateLabels("aconcagua_normal_route"), href: getLocalizedPermalink("/homes/saas") },
+        { text: translateLabels("aconcagua_360"), href: getLocalizedPermalink("/homes/saas") },
+        { text: translateLabels("aconcagua_polish_glacier"), href: getLocalizedPermalink("/homes/saas") },
+      ],
+    },
+    {
+      text: translateLabels("trekkings"),
+      href: getLocalizedPermalink("/homes/trekkings"),
+      links: [
+        { text: translateLabels("aconcagua_trek_francia"), href: getLocalizedPermalink("/homes/saas") },
+        { text: translateLabels("aconcagua_trek_mulas"), href: getLocalizedPermalink("/homes/saas") },
+        { text: translateLabels("aconcagua_trek_lagrimas"), href: getLocalizedPermalink("/homes/saas") },
+        { text: translateLabels("aconcagua_trek_others"), href: getLocalizedPermalink("/homes/saas") },
+
+      ],
+    },
+    {
+      text: translateLabels("services"),
+      href: getLocalizedPermalink("/homes/servicios"),
+      links: [
+        { text: translateLabels("full_assistance_service"), href: getLocalizedPermalink("/homes/saas") },
+        { text: translateLabels("aconcagua_logistic_packages"), href: getLocalizedPermalink("/homes/saas") },
+        { text: translateLabels("base_camp_service"), href: getLocalizedPermalink("/homes/saas") },
+        { text: translateLabels("porters"), href: getLocalizedPermalink("/homes/saas") },
+        { text: translateLabels("mules_for_cargo_transport"), href: getLocalizedPermalink("/homes/saas") },
+      ],
+    },
+    {
+      text: translateLabels("about_us"),
+      href: getLocalizedPermalink("/homes/nosotros"),
+      links: [
+        { text: translateLabels("local_company"), href: getLocalizedPermalink("/homes/saas") },
+        { text: translateLabels("our_staff"), href: getLocalizedPermalink("/homes/saas") },
+        { text: translateLabels("history"), href: getLocalizedPermalink("/homes/saas") },
+        { text: translateLabels("reasons_to_choose_us"), href: getLocalizedPermalink("/homes/saas") },
+      ],
+    },
+    {
+      text: translateLabels("aconcagua"),
+      href: getLocalizedPermalink("/homes/aconcagua"),
+      links: [
+        { text: translateLabels("about_aconcagua"), href: getLocalizedPermalink("/homes/saas") },
+        { text: translateLabels("seven_summits"), href: getLocalizedPermalink("/homes/saas") },
+        { text: translateLabels("location"), href: getLocalizedPermalink("/homes/saas") },
+        { text: translateLabels("weather"), href: getLocalizedPermalink("/homes/saas") },
+        { text: translateLabels("wildlife"), href: getLocalizedPermalink("/homes/saas") },
+      ],
+    },
+
+  ],
+};
 ---
 
 <style>
@@ -114,9 +176,9 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
 
 <div class="fixed-container">
   <div id="top-banner" class="top-banner">
-    <p>SUMATE A LA PRÓXIMA TEMPORADA ACONCAGUA 2025 / 2026</p>
+    <p>{translateLabels("join_next_season")} ACONCAGUA 2025 / 2026</p>
     <div class="flex items-center">
-      <a href={link} class="reserve-btn">RESERVA AHORA</a>
+      <a href={link} class="reserve-btn">{translateLabels("reserve_now")}</a>
       <button class="close-btn" onclick="document.getElementById('top-banner').style.display = 'none';">✕</button>
     </div>
   </div>
@@ -160,12 +222,12 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
           class="flex flex-col md:flex-row md:self-center w-full md:w-auto text-xl md:text-[0.9375rem] tracking-[0.01rem] font-medium md:justify-center"
         >
           {
-            links.map(({ text, href, links }) => (
+            headerData.links.map(({ text, href, links }) => (
               <li class={links?.length ? 'dropdown' : ''}>
                 {links?.length ? (
                   <>
-                    <button type="button" class="hover:text-link dark:hover:text-white px-4 py-3 flex items-center">
-                      {text}{' '}
+<button type="button" class="hover:text-link dark:hover:text-white px-4 py-3 flex items-center" style="white-space: nowrap;">
+  {text}{' '}
                       <Icon name="tabler:chevron-down" class="w-3.5 h-3.5 ml-0.5 rtl:ml-0 rtl:mr-0.5 hidden md:inline" />
                     </button>
                     <ul class="dropdown-menu md:backdrop-blur-md dark:md:bg-dark rounded md:absolute pl-4 md:pl-0 md:hidden font-medium md:bg-white/90 md:min-w-[200px] drop-shadow-xl">
@@ -185,15 +247,15 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
                     </ul>
                   </>
                 ) : (
-                  <a
-                    class:list={[
-                      'hover:text-link dark:hover:text-white px-4 py-3 flex items-center',
-                      { 'aw-link-active': href === currentPath },
-                    ]}
-                    href={href}
-                  >
-                    {text}
-                  </a>
+                <a
+  class:list={[
+    'hover:text-link dark:hover:text-white px-6 py-3 flex items-center min-w-[150px]',
+    { 'aw-link-active': href === currentPath },
+  ]}
+  href={href}
+>
+  {text}
+</a>
                 )}
               </li>
             ))

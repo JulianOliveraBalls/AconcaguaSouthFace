@@ -1,31 +1,49 @@
 ---
-import { Icon } from 'astro-icon/components';
 import { getHomePermalink } from '~/utils/permalinks';
-
 import Brands from '~/components/widgets/Brands.astro';
+import { useTranslations } from "~/i18n/utils";
+import { languageList } from '~/i18n/ui';
+const currentLang = Astro.currentLocale || "es";
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { getPermalink } from '~/utils/permalinks';
+const translateLabels = useTranslations(
+  currentLang as keyof typeof languageList
+);
 
-
-interface Link {
-  text?: string;
-  href?: string;
-  ariaLabel?: string;
-  icon?: string;
-}
-
-interface Links {
-  title?: string;
-  links: Array<Link>;
+export function getLocalizedPermalink(path, lang = "es") {
+  return getRelativeLocaleUrl(lang, getPermalink(path));
 }
 
 export interface Props {
-  links: Array<Links>;
-  secondaryLinks: Array<Link>;
-  socialLinks: Array<Link>;
   footNote?: string;
   theme?: string;
 }
 
-const { socialLinks = [], secondaryLinks = [], links = [], footNote = '',} = Astro.props;
+const footerData = {
+  links: [
+    {
+      title: translateLabels("help"),
+      links: [
+        { text: translateLabels("contact_us"), href: getLocalizedPermalink("/contact") },
+        { text: translateLabels("aconcagua"), href: getLocalizedPermalink("/homes/aconcagua") },
+        { text: translateLabels("privacy_policy") },
+        { text: translateLabels("terms_conditions") },
+      ],
+    },
+    {
+      title: translateLabels("social_media"),
+      links: [
+        { text: "Instagram", href: "https://www.instagram.com/aconcaguaparedsur" },
+        { text: "Facebook", href: "https://www.facebook.com/aconcaguaparedsur" },
+        { text: "Whatsapp", href: "https://api.whatsapp.com/send?phone=%2B542612506186" },
+      ],
+    },
+    {
+      title: translateLabels("about"),
+      links: [{ text: "paredsur.aconcagua@gmail.com" }],
+    },
+  ],
+};
 ---
 
 <footer class:list={['relative border-t border-gray-200 dark:border-slate-800 not-prose']}>
@@ -36,7 +54,7 @@ const { socialLinks = [], secondaryLinks = [], links = [], footNote = '',} = Ast
         
   <Brands
   title=""
-  subtitle="Certificaciones"
+  subtitle={translateLabels("certifications")}
   icons={[]}
   images={[
     {
@@ -57,33 +75,19 @@ const { socialLinks = [], secondaryLinks = [], links = [], footNote = '',} = Ast
         <div class="mb-2">
           <a class="inline-block font-bold text-xl" href={getHomePermalink()}></a>
         </div>
-        <div class="text-sm text-muted flex gap-1">
-          {
-            secondaryLinks.map(({ text, href }, index) => (
-              <>
-                {index !== 0 ? ' · ' : ''}
-                <a
-                  class="text-muted hover:text-gray-700 dark:text-gray-400 hover:underline transition duration-150 ease-in-out"
-                  href={href}
-                  set:html={text}
-                />
-              </>
-            ))
-          }
-        </div>
+        
       </div>
       {
-        links.map(({ title, links }) => (
+        footerData.links.map(({ title, links }) => (
           <div class="col-span-6 md:col-span-3 lg:col-span-2">
             <div class="dark:text-gray-300 font-medium mb-2">{title}</div>
             {links && Array.isArray(links) && links.length > 0 && (
               <ul class="text-sm">
-                {links.map(({ text, href, ariaLabel }) => (
+                {links.map(({ text, href }) => (
                   <li class="mb-2">
                     <a
                       class="text-muted hover:text-gray-700 hover:underline dark:text-gray-400 transition duration-150 ease-in-out"
                       href={href}
-                      aria-label={ariaLabel}
                     >
                       <Fragment set:html={text} />
                     </a>
@@ -96,30 +100,6 @@ const { socialLinks = [], secondaryLinks = [], links = [], footNote = '',} = Ast
       }
     </div>
     
-      {
-        socialLinks?.length ? (
-          <ul class="flex mb-4 md:order-1 -ml-2 md:ml-4 md:mb-0 rtl:ml-0 rtl:-mr-2 rtl:md:ml-0 rtl:md:mr-4">
-            {socialLinks.map(({ ariaLabel, href, text, icon }) => (
-              <li>
-                <a
-                  class="text-muted dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 rounded-lg text-sm p-2.5 inline-flex items-center"
-                  aria-label={ariaLabel}
-                  href={href}
-                >
-                  {icon && <Icon name={icon} class="w-5 h-5" />}
-                  <Fragment set:html={text} />
-                </a>
-              </li>
-            ))}
-          </ul>
-        ) : (
-          ''
-        )
-      }
-
-      <div class="text-sm mr-4 dark:text-muted">
-        <Fragment set:html={footNote} />
-      </div>
     
   </div>
 </footer>
