@@ -93,7 +93,9 @@ export const labels = {
         wildlife: "Vida Silvestre",
         joinNextSeason: "SUMATE A LA PRÓXIMA TEMPORADA ACONCAGUA 2025 / 2026",
         reserveNow: "RESERVA AHORA",
-        certifications: "Certificaciones"
+        certifications: "Certificaciones",
+        season: "TEMPORADA 2024 – 2025",
+        termsConditionsTitle: "TÉRMINOS Y CONDICIONES"
 
     },
     en: {
@@ -185,6 +187,9 @@ export const labels = {
         wildlife: "Wildlife",
         joinNextSeason: "JOIN THE NEXT ACONCAGUA SEASON 2025 / 2026",
         reserveNow: "RESERVE NOW",
-        certifications: "Certifications"
+        certifications: "Certifications",
+        season: "2024 – 2025 SEASON",
+        termsConditionsTitle: "TERMS AND CONDITIONS"
+        
     }
 }

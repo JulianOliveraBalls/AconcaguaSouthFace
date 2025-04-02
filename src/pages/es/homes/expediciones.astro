@@ -1,6 +1,5 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
-import Whatsapp from  '~/components/widgets/Whatsapp.astro';
 import Hero2 from '~/components/widgets/Hero2.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
 import Testimonials from '~/components/widgets/Testimonials.astro';
@@ -12,18 +11,7 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
-  <Whatsapp
-  images={[
-    {
-      src: '~/assets/images/WhatsApp_icon.png',
-      alt: 'Centro',
-    }
-  ]}
-/>
 
-
-  <Fragment slot="header">
-  </Fragment>
 
   <!-- Hero2 Widget ******************* -->
 

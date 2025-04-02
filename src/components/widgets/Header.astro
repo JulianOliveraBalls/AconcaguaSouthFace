@@ -15,8 +15,28 @@ const translateLabels = useTranslations(
 );
 
 export function getLocalizedPermalink(path, lang = "es") {
-  return getRelativeLocaleUrl(lang, getPermalink(path));
+  // Si la ruta es la raíz, devuelve solo el prefijo del idioma
+  if (path === '/' || path === `/${lang}`) {
+    return `/${lang}`;
+  }
+
+  // Asegúrate de que `path` no incluya el prefijo del idioma actual
+  const pathWithoutLocale = path.replace(/^\/(es|en)(\/|$)/, '');
+
+  // Obtén la URL localizada
+  let localizedUrl = getRelativeLocaleUrl(lang, getPermalink(pathWithoutLocale));
+
+  // Asegúrate de que no haya una barra al final de la URL
+  if (localizedUrl.endsWith('/') && localizedUrl.length > 1) {
+    localizedUrl = localizedUrl.slice(0, -1);
+  }
+
+  return localizedUrl;
 }
+
+
+
+
 interface Link {
   text?: string;
   href?: string;
@@ -57,60 +77,59 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
   links: [
     {
       text: translateLabels("expeditions"),
-      href: getLocalizedPermalink("/homes/expediciones"),
+      href: getLocalizedPermalink("/homes/expediciones"), // URL de destino para "expeditions"
       links: [
         { text: translateLabels("expeditions"), href: getLocalizedPermalink("/homes/expediciones") },
-        { text: translateLabels("aconcagua_normal_route"), href: getLocalizedPermalink("/homes/saas") },
-        { text: translateLabels("aconcagua_360"), href: getLocalizedPermalink("/homes/saas") },
-        { text: translateLabels("aconcagua_polish_glacier"), href: getLocalizedPermalink("/homes/saas") },
+        { text: translateLabels("aconcagua_normal_route"), href: getLocalizedPermalink("/homes/aconcagua-normal-route") },
+        { text: translateLabels("aconcagua_360"), href: getLocalizedPermalink("/homes/aconcagua-360") },
+        { text: translateLabels("aconcagua_polish_glacier"), href: getLocalizedPermalink("/homes/aconcagua-polish-glacier") },
       ],
     },
     {
       text: translateLabels("trekkings"),
-      href: getLocalizedPermalink("/homes/trekkings"),
+      href: getLocalizedPermalink("/homes/trekkings"), // URL de destino para "trekkings"
       links: [
-        { text: translateLabels("aconcagua_trek_francia"), href: getLocalizedPermalink("/homes/saas") },
-        { text: translateLabels("aconcagua_trek_mulas"), href: getLocalizedPermalink("/homes/saas") },
-        { text: translateLabels("aconcagua_trek_lagrimas"), href: getLocalizedPermalink("/homes/saas") },
-        { text: translateLabels("aconcagua_trek_others"), href: getLocalizedPermalink("/homes/saas") },
-
+        { text: translateLabels("aconcagua_trek_francia"), href: getLocalizedPermalink("/homes/aconcagua-trek-francia") },
+        { text: translateLabels("aconcagua_trek_mulas"), href: getLocalizedPermalink("/homes/aconcagua-trek-mulas") },
+        { text: translateLabels("aconcagua_trek_lagrimas"), href: getLocalizedPermalink("/homes/aconcagua-trek-lagrimas") },
+        { text: translateLabels("aconcagua_trek_others"), href: getLocalizedPermalink("/homes/aconcagua-trek-others") },
       ],
     },
     {
       text: translateLabels("services"),
-      href: getLocalizedPermalink("/homes/servicios"),
+      href: getLocalizedPermalink("/homes/servicios"), // URL de destino para "services"
       links: [
-        { text: translateLabels("full_assistance_service"), href: getLocalizedPermalink("/homes/saas") },
-        { text: translateLabels("aconcagua_logistic_packages"), href: getLocalizedPermalink("/homes/saas") },
-        { text: translateLabels("base_camp_service"), href: getLocalizedPermalink("/homes/saas") },
-        { text: translateLabels("porters"), href: getLocalizedPermalink("/homes/saas") },
-        { text: translateLabels("mules_for_cargo_transport"), href: getLocalizedPermalink("/homes/saas") },
+        { text: translateLabels("full_assistance_service"), href: getLocalizedPermalink("/homes/full-assistance-service") },
+        { text: translateLabels("aconcagua_logistic_packages"), href: getLocalizedPermalink("/homes/aconcagua-logistic-packages") },
+        { text: translateLabels("base_camp_service"), href: getLocalizedPermalink("/homes/base-camp-service") },
+        { text: translateLabels("porters"), href: getLocalizedPermalink("/homes/porters") },
+        { text: translateLabels("mules_for_cargo_transport"), href: getLocalizedPermalink("/homes/mules-for-cargo-transport") },
       ],
     },
     {
       text: translateLabels("about_us"),
-      href: getLocalizedPermalink("/homes/nosotros"),
+      href: getLocalizedPermalink("/homes/nosotros"), // URL de destino para "about_us"
       links: [
-        { text: translateLabels("local_company"), href: getLocalizedPermalink("/homes/saas") },
-        { text: translateLabels("our_staff"), href: getLocalizedPermalink("/homes/saas") },
-        { text: translateLabels("history"), href: getLocalizedPermalink("/homes/saas") },
-        { text: translateLabels("reasons_to_choose_us"), href: getLocalizedPermalink("/homes/saas") },
+        { text: translateLabels("local_company"), href: getLocalizedPermalink("/homes/local-company") },
+        { text: translateLabels("our_staff"), href: getLocalizedPermalink("/homes/our-staff") },
+        { text: translateLabels("history"), href: getLocalizedPermalink("/homes/history") },
+        { text: translateLabels("reasons_to_choose_us"), href: getLocalizedPermalink("/homes/reasons-to-choose-us") },
       ],
     },
     {
       text: translateLabels("aconcagua"),
-      href: getLocalizedPermalink("/homes/aconcagua"),
+      href: getLocalizedPermalink("/homes/aconcagua"), // URL de destino para "aconcagua"
       links: [
-        { text: translateLabels("about_aconcagua"), href: getLocalizedPermalink("/homes/saas") },
-        { text: translateLabels("seven_summits"), href: getLocalizedPermalink("/homes/saas") },
-        { text: translateLabels("location"), href: getLocalizedPermalink("/homes/saas") },
-        { text: translateLabels("weather"), href: getLocalizedPermalink("/homes/saas") },
-        { text: translateLabels("wildlife"), href: getLocalizedPermalink("/homes/saas") },
+        { text: translateLabels("about_aconcagua"), href: getLocalizedPermalink("/homes/about-aconcagua") },
+        { text: translateLabels("seven_summits"), href: getLocalizedPermalink("/homes/seven-summits") },
+        { text: translateLabels("location"), href: getLocalizedPermalink("/homes/location") },
+        { text: translateLabels("weather"), href: getLocalizedPermalink("/homes/weather") },
+        { text: translateLabels("wildlife"), href: getLocalizedPermalink("/homes/wildlife") },
       ],
     },
-
   ],
 };
+
 ---
 
 <style>
@@ -218,49 +237,54 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
         class="items-center w-full md:w-auto hidden md:flex md:mx-5 text-default overflow-y-auto overflow-x-hidden md:overflow-y-visible md:overflow-x-auto md:justify-self-center"
         aria-label="Main navigation"
       >
-        <ul
-          class="flex flex-col md:flex-row md:self-center w-full md:w-auto text-xl md:text-[0.9375rem] tracking-[0.01rem] font-medium md:justify-center"
-        >
-          {
-            headerData.links.map(({ text, href, links }) => (
-              <li class={links?.length ? 'dropdown' : ''}>
-                {links?.length ? (
-                  <>
-<button type="button" class="hover:text-link dark:hover:text-white px-4 py-3 flex items-center" style="white-space: nowrap;">
-  {text}{' '}
-                      <Icon name="tabler:chevron-down" class="w-3.5 h-3.5 ml-0.5 rtl:ml-0 rtl:mr-0.5 hidden md:inline" />
-                    </button>
-                    <ul class="dropdown-menu md:backdrop-blur-md dark:md:bg-dark rounded md:absolute pl-4 md:pl-0 md:hidden font-medium md:bg-white/90 md:min-w-[200px] drop-shadow-xl">
-                      {links.map(({ text: text2, href: href2 }) => (
-                        <li>
-                          <a
-                            class:list={[
-                              'first:rounded-t last:rounded-b md:hover:bg-gray-100 hover:text-link dark:hover:text-white dark:hover:bg-gray-700 py-2 px-5 block whitespace-no-wrap',
-                              { 'aw-link-active': href2 === currentPath },
-                            ]}
-                            href={href2}
-                          >
-                            {text2}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  </>
-                ) : (
+      <ul
+      class="flex flex-col md:flex-row md:self-center w-full md:w-auto text-xl md:text-[0.9375rem] tracking-[0.01rem] font-medium md:justify-center"
+    >
+      {
+        headerData.links.map(({ text, href, links }) => (
+          <li class={links?.length ? 'dropdown' : ''}>
+            {links?.length ? (
+              <>
                 <a
-  class:list={[
-    'hover:text-link dark:hover:text-white px-6 py-3 flex items-center min-w-[150px]',
-    { 'aw-link-active': href === currentPath },
-  ]}
-  href={href}
->
-  {text}
-</a>
-                )}
-              </li>
-            ))
-          }
-        </ul>
+                  class="hover:text-link dark:hover:text-white px-4 py-3 flex items-center"
+                  href={href}
+                  style="white-space: nowrap;"
+                >
+                  {text}{' '}
+                  <Icon name="tabler:chevron-down" class="w-3.5 h-3.5 ml-0.5 rtl:ml-0 rtl:mr-0.5 hidden md:inline" />
+                </a>
+                <ul class="dropdown-menu md:backdrop-blur-md dark:md:bg-dark rounded md:absolute pl-4 md:pl-0 md:hidden font-medium md:bg-white/90 md:min-w-[200px] drop-shadow-xl">
+                  {links.map(({ text: text2, href: href2 }) => (
+                    <li>
+                      <a
+                        class:list={[
+                          'first:rounded-t last:rounded-b md:hover:bg-gray-100 hover:text-link dark:hover:text-white dark:hover:bg-gray-700 py-2 px-5 block whitespace-no-wrap',
+                          { 'aw-link-active': href2 === currentPath },
+                        ]}
+                        href={href2}
+                      >
+                        {text2}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <a
+                class:list={[
+                  'hover:text-link dark:hover:text-white px-6 py-3 flex items-center min-w-[150px]',
+                  { 'aw-link-active': href === currentPath },
+                ]}
+                href={href}
+              >
+                {text}
+              </a>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+    
       </nav>
 
       <div class="md:flex md:items-center md:justify-end py-3 md:py-3 ml-auto relative">
@@ -274,13 +298,15 @@ const currentPath = `/${trimSlash(new URL(Astro.url).pathname)}`;
               <li>
                 <a
                   class="first:rounded-t last:rounded-b md:hover:bg-gray-100 hover:text-link dark:hover:text-white dark:hover:bg-gray-700 py-2 px-4 block whitespace-no-wrap"
-                  href={`/${key}`}
+                  href={getLocalizedPermalink(currentPath === '/' ? '/' : currentPath, key)}
                 >
                   {label}
                 </a>
               </li>
             ))}
           </ul>
+          
+                   
         </div>
       </div>
     </div>
