@@ -4,6 +4,23 @@ import Hero3 from '~/components/widgets/Hero3.astro';
 import Whatsapp from  '~/components/widgets/Whatsapp.astro';
 import Testimonials from '~/components/widgets/Testimonials.astro';
 import Layout from '~/layouts/PageLayout.astro';
+import Layout from '~/layouts/PageLayout.astro';
+import Content from '~/components/widgets/Content.astro';
+import Whatsapp from  '~/components/widgets/Whatsapp.astro';
+import Hero4 from '~/components/widgets/Hero4.astro';
+import Publicity from '~/components/widgets/PublicityES.astro';
+import InformationCards from '~/components/widgets/InformationCards.astro';
+import { getRelativeLocaleUrl } from "astro:i18n";
+import { useTranslations } from "~/i18n/utils";
+import { languageList } from '~/i18n/ui';
+const currentLang = Astro.currentLocale || "es";
+import { getPermalink } from '~/utils/permalinks';
+
+const translateLabels = useTranslations(currentLang as keyof typeof languageList);
+
+export function getLocalizedPermalink(path, lang = "es") {
+  return getRelativeLocaleUrl(lang, getPermalink(path));
+}
 
 const metadata = {
   title: 'Trekkings',
@@ -11,25 +28,23 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
-  <Whatsapp
-  images={[
-    {
-      src: '~/assets/images/WhatsApp_icon.png',
-      alt: 'Centro',
-    }
-  ]}
-/>
+
 
 
   <!-- Hero Widget ******************* -->
-
-  <Hero3
-    tagline="Trekkings"
-    title="Aventuráte al Aconcagua con nuestros trekkings."
-    subtitle="Los trekkings en el Parque Aconcagua te ofrecen vistas magníficas y la emocionante oportunidad de acercarte a la base de la mítica Pared Sur del Aconcagua. Con casi 3.000 metros de altura y cubierto de glaciares colgantes, es una de las paredes más impresionantes del mundo. Tenemos dos itinerarios diseñados para que disfrutes de una experiencia inolvidable y explores los diferentes campamentos base del Aconcagua."
+  <Hero4 images={[
+    '~/assets/images/carrusel1.jpeg',
+    '~/assets/images/carrusel2.jpeg',
+  ]}>
+   <Fragment slot="title">
+    <span set:html={translateLabels("heroTitle")} />
+  </Fragment>
   
-  />
-
+  <Fragment slot="subtitle">
+    <span class="sm:inline" set:html={translateLabels("heroSubtitle")} />
+  </Fragment>
+  
+  </Hero4>
   <!-- Features2 Widget ************** -->
 
   <!-- Content Widget **************** -->

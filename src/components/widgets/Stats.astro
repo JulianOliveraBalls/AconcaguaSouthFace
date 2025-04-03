@@ -9,7 +9,6 @@ const {
   subtitle = await Astro.slots.render('subtitle'),
   tagline,
   stats = [],
-
   id,
   isDark = false,
   classes = {},
@@ -19,28 +18,75 @@ const {
 
 <WidgetWrapper id={id} isDark={isDark} containerClass={`max-w-6xl mx-auto ${classes?.container ?? ''}`} bg={bg}>
   <Headline title={title} subtitle={subtitle} tagline={tagline} />
+  
   <div class="flex flex-wrap justify-center -m-4 text-center">
-    {
-      stats &&
-        stats.map(({ amount, title, icon }) => (
-          <div class="p-4 md:w-1/4 sm:w-1/2 w-full min-w-[220px] text-center md:border-r md:last:border-none dark:md:border-slate-500">
-            {icon && (
-              <div class="flex items-center justify-center mx-auto mb-4 text-primary">
-                <Icon name={icon} class="w-10 h-10" />
-              </div>
-            )}
-            {amount && (
-              <div class="font-heading text-primary text-[2.6rem] font-bold dark:text-white lg:text-5xl xl:text-6xl">
-                {amount}
-              </div>
-            )}
-            {title && (
-              <div class="text-sm font-medium uppercase tracking-widest text-gray-800 dark:text-slate-400 lg:text-base">
-                {title}
-              </div>
-            )}
+    {stats.map(({ amount, title, icon }, index) => (
+      <div class="p-4 md:w-1/4 sm:w-1/2 w-full min-w-[220px] text-center md:border-r md:last:border-none dark:md:border-slate-500">
+        
+        {icon && (
+          <div class="flex items-center justify-center mx-auto mb-4 text-primary">
+            <Icon name={icon} class="w-10 h-10" />
           </div>
-        ))
-    }
+        )}
+
+        {amount && (
+          <div 
+            class="font-heading text-primary text-[2.6rem] font-bold dark:text-white lg:text-5xl xl:text-6xl counter" 
+            data-target={amount} 
+            id={`counter-${index}`}
+          >
+            0
+          </div>
+        )}
+
+        {title && (
+          <div class="text-sm font-medium uppercase tracking-widest text-gray-800 dark:text-slate-400 lg:text-base">
+            {title}
+          </div>
+        )}
+      </div>
+    ))}
   </div>
 </WidgetWrapper>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const counters = document.querySelectorAll(".counter");
+
+    if (!counters) return; // Evita errores si no hay elementos
+
+    const speed = 100; // Ajusta la velocidad del conteo
+
+    const convertToNumber = (value) => {
+      if (value.includes("K")) return parseFloat(value) * 1000;
+      if (value.includes("M")) return parseFloat(value) * 1000000;
+      return parseFloat(value) || 0;
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const targetElement = entry.target as HTMLElement;
+          const targetValue = convertToNumber(targetElement.getAttribute("data-target") ?? "0");
+
+          let count = 0;
+          const increment = targetValue / speed;
+
+          const updateCount = () => {
+            count += increment;
+            if (count < targetValue) {
+              targetElement.innerText = Math.ceil(count).toLocaleString();
+              requestAnimationFrame(updateCount);
+            } else {
+              targetElement.innerText = targetValue.toLocaleString();
+            }
+          };
+
+          updateCount();
+          observer.unobserve(targetElement);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    counters.forEach((counter) => observer.observe(counter));
+  });
+</script>

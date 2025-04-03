@@ -7,6 +7,7 @@ import CallToAction from '~/components/widgets/CallToAction.astro';
 import Testimonials from '~/components/widgets/Testimonials.astro';
 import { headerData } from '~/navigation';
 import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
+import ImageLink from '~/components/widgets/ImageLink.astro';
 
 const metadata = {
   title: 'Expediciones',
@@ -14,16 +15,6 @@ const metadata = {
 ---
 
 <Layout metadata={metadata}>
-  <Whatsapp
-  images={[
-    {
-      src: '~/assets/images/WhatsApp_icon.png',
-      alt: 'Centro',
-    }
-  ]}
-/>
-
-
   <Fragment slot="header">
     <Header
       {...headerData}
@@ -160,23 +151,13 @@ const metadata = {
 
 
 
-  <CallToAction
-  actions={[
-    {
-      variant: 'primary',
-      target: '_blank',
-      text: 'Servicios',
-      href: '/homes/servicios',
-    },
-  ]}
->
-  <Fragment slot="title">Prefieres escalar por tu cuenta?</Fragment>
-
-  <Fragment slot="subtitle">
-    Descubre los servicios que ofrecemos...
-  </Fragment>
-</CallToAction>
-  <!-- Steps2 Widget ****************** -->
+<ImageLink 
+  imageUrl= '/src/assets/images/bg2.png'
+  title="ERES UN ESCALADOR SOLITARIO?"
+  subtitle="Tenemos los mejores servicios logísticos para ti"
+  buttonText="CLICK AQUÍ"
+  buttonLink="/homes/servicios"
+/>
 
  
 
